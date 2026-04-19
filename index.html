@@ -1,0 +1,1356 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>الريمونتادا - نظام المذاكرة المتكامل</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+:root{
+    --p1-color:#2196F3;
+    --p2-color:#4CAF50;
+    --p3-color:#FFD700;
+    --p4-color:#9C27B0;
+    --countdown-color:#F44336;
+    --pb:#5D4037;
+    --db:#3E2723;
+    --lb:#8D6E63;
+    --cr:#F5F5DC;
+    --lc:#FAF8F0;
+    --ag:#D4AF37;
+    --sg:#4CAF50;
+    --dr:#F44336;
+    --ph:#2196F3;
+    --sp:#2E7D32;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Tajawal',"Segoe UI Emoji","Apple Color Emoji","Noto Color Emoji",sans-serif;background:linear-gradient(135deg,#FAF8F0 0%,#F5F5DC 100%);min-height:100vh;color:var(--db);line-height:1.6;padding-bottom:420px;}
+.phase-tab,.counter-btn,.niya-btn,.prayer-btn,.modal-close,.data-btn,.report-btn,.celebration-btn,.proud-input{font-family:'Tajawal',"Segoe UI Emoji","Apple Color Emoji","Noto Color Emoji",sans-serif;}
+
+.phase-nav{position:sticky;top:0;background:white;padding:1rem;box-shadow:0 4px 20px rgba(0,0,0,0.1);z-index:1000;display:flex;flex-direction:column;gap:0.5rem;}
+.phase-tabs{display:flex;gap:0.5rem;overflow-x:auto;padding-bottom:0.5rem;}
+.phase-tab{flex:1;min-width:120px;padding:1rem;border:none;border-radius:15px;cursor:pointer;font-family:inherit;font-weight:700;font-size:0.85rem;transition:all 0.3s;background:#f0f0f0;color:#666;}
+.phase-tab:hover{transform:translateY(-2px);}
+.phase-tab.active{color:white;box-shadow:0 4px 15px rgba(0,0,0,0.2);}
+.phase-tab.phase1.active{background:var(--p1-color);}
+.phase-tab.phase2.active{background:var(--p2-color);}
+.phase-tab.phase3.active{background:var(--p3-color);color:var(--db);}
+.phase-tab.phase4.active{background:var(--p4-color);}
+.phase-status{font-size:0.7rem;opacity:0.9;margin-top:0.3rem;}
+.current-phase-info{background:linear-gradient(135deg,var(--pb),var(--db));color:white;padding:0.8rem 1rem;border-radius:12px;font-size:0.9rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem;}
+
+.header{background:linear-gradient(135deg,var(--pb) 0%,var(--db) 100%);padding:2rem 1rem;text-align:center;box-shadow:0 4px 20px rgba(0,0,0,0.15);}
+.main-title{font-size:2.5rem;font-weight:900;background:linear-gradient(90deg,var(--cr),var(--ag),#FF6B6B,var(--cr));background-size:300% 100%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:gradientShift 4s ease infinite;letter-spacing:2px;}
+@keyframes gradientShift{0%,100%{background-position:0% 50%;}50%{background-position:100% 50%;}}
+.subtitle{font-size:1rem;color:var(--cr);opacity:.9;font-style:italic;margin-top:0.5rem;}
+
+.week-nav{display:flex;justify-content:center;align-items:center;gap:1rem;padding:1.5rem;background:var(--lc);border-bottom:3px solid var(--pb);}
+.week-btn{background:var(--pb);color:white;border:none;width:45px;height:45px;border-radius:50%;cursor:pointer;font-size:1.8rem;line-height:1;transition:all .3s;display:flex;align-items:center;justify-content:center;}
+.week-btn:hover{background:var(--db);transform:scale(1.15) rotate(5deg);}
+.week-title{font-size:1rem;font-weight:800;color:var(--pb);min-width:200px;text-align:center;}
+
+.container{max-width:900px;margin:0 auto;padding:1rem;}
+
+.progress-section{background:white;border-radius:20px;padding:1.5rem;margin:1rem 0;box-shadow:0 4px 15px rgba(0,0,0,.08);}
+.progress-bar{height:24px;background:#eee;border-radius:12px;overflow:hidden;}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--sg),var(--ag));border-radius:12px;transition:width .5s ease;display:flex;align-items:center;justify-content:flex-end;padding-right:12px;color:white;font-weight:700;font-size:.8rem;min-width:2rem;position:relative;overflow:hidden;}
+.progress-fill::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.5),transparent);animation:shimmer 2s infinite;}
+@keyframes shimmer{0%{left:-100%;}100%{left:100%;}}
+
+.schedule-card{background:white;border-radius:20px;margin:1rem 0;box-shadow:0 4px 15px rgba(0,0,0,.08);overflow:hidden;}
+.schedule-header{background:var(--db);color:var(--cr);padding:1rem;text-align:center;font-weight:700;font-size:.9rem;}
+.schedule-table{width:100%;border-collapse:separate;border-spacing:0;}
+.schedule-table th{background:var(--pb);color:white;padding:.8rem;font-size:.8rem;}
+.schedule-table td{padding:.7rem .5rem;text-align:center;border-bottom:1px solid #eee;font-size:.8rem;}
+.subject-chem{color:var(--sg);font-weight:700;background:rgba(76,175,80,.1);padding:.2rem .5rem;border-radius:8px;display:inline-block;}
+.subject-phys{color:var(--ph);font-weight:700;background:rgba(33,150,243,.1);padding:.2rem .5rem;border-radius:8px;display:inline-block;}
+.subject-review{color:var(--ag);font-weight:700;background:rgba(212,175,55,.1);padding:.2rem .5rem;border-radius:8px;display:inline-block;}
+
+.day-task{background:white;border-radius:20px;padding:1.5rem;margin:1rem 0;box-shadow:0 4px 15px rgba(0,0,0,.08);}
+.day-header{display:flex;justify-content:space-between;align-items:center;cursor:pointer;padding:.5rem;background:var(--lc);border-radius:12px;transition:all .3s;}
+.day-header:hover{background:#e8e4d9;transform:translateY(-2px);}
+.day-label{font-weight:800;color:var(--pb);font-size:1rem;}
+
+.task-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.8rem;max-height:0;overflow:hidden;transition:max-height .5s ease;padding:0 .5rem;}
+@media(min-width:600px){.task-grid{grid-template-columns:repeat(3,1fr);}}
+.task-grid.expanded{max-height:3000px;padding-top:1rem;}
+
+.task-item{background:var(--lc);border-radius:15px;padding:1rem;border:2px solid transparent;cursor:pointer;text-align:center;transition:all .3s;position:relative;}
+.task-item:hover{border-color:var(--pb);transform:translateY(-3px);box-shadow:0 8px 25px rgba(0,0,0,0.15);}
+.task-item.completed{background:#E8F5E9;border-color:var(--sg);}
+.task-item.review-item{background:rgba(212,175,55,0.08);border:2px dashed rgba(212,175,55,0.4);}
+.task-item.review-item:hover{border-color:var(--ag);}
+.task-item.review-item.completed{background:#FFF9E6;border-color:var(--ag);border-style:solid;}
+
+.checkbox{width:24px;height:24px;border:2px solid var(--pb);border-radius:6px;margin:0 auto .7rem;display:flex;align-items:center;justify-content:center;font-size:.8rem;transition:all .3s;}
+.task-item.completed .checkbox{background:var(--sg);border-color:var(--sg);color:white;}
+.task-item.review-item .checkbox{border-color:var(--ag);}
+.task-item.review-item.completed .checkbox{background:var(--ag);border-color:var(--ag);}
+
+.task-icon{font-size:1.3rem;margin-bottom:.4rem;color:var(--pb);transition:all .3s;}
+.task-item.completed .task-icon{color:var(--sg);}
+.task-item.review-item .task-icon{color:var(--ag);}
+.task-label{font-size:.72rem;font-weight:600;color:var(--db);}
+
+.toggle-icon{transition:transform .3s;color:var(--pb);font-size:1.1rem;}
+.toggle-icon.rotated{transform:rotate(180deg);}
+
+.section-divider{grid-column:1/-1;background:linear-gradient(90deg,transparent,var(--ag),transparent);height:2px;border-radius:2px;margin:.5rem 0;}
+.section-label{grid-column:1/-1;text-align:center;color:var(--ag);font-weight:800;font-size:.8rem;padding:.3rem;background:rgba(212,175,55,0.1);border-radius:8px;}
+
+.chapter-complete{background:linear-gradient(135deg,var(--ag),#FF6B6B);color:white;padding:.8rem;border-radius:12px;text-align:center;font-weight:700;margin-top:1rem;}
+
+.chart-section{background:white;border-radius:20px;padding:1.5rem;margin:1rem 0;box-shadow:0 4px 15px rgba(0,0,0,.08);}
+.chart-title{font-weight:800;color:var(--pb);margin-bottom:1rem;text-align:center;}
+
+.day-counter-section{background:white;border-radius:20px;padding:1.5rem;margin:1rem 0;box-shadow:0 4px 15px rgba(0,0,0,.08);}
+.day-counter-title{font-weight:700;color:var(--pb);margin-bottom:.8rem;}
+.day-counter{display:flex;justify-content:center;align-items:center;gap:1rem;flex-wrap:wrap;}
+.counter-box{background:linear-gradient(135deg,var(--pb),var(--db));color:white;padding:1.2rem 2rem;border-radius:20px;cursor:pointer;transition:all .3s;min-width:140px;text-align:center;}
+.counter-box:hover{transform:scale(1.08);}
+.counter-number{font-size:2.2rem;font-weight:900;}
+.counter-label{font-size:.85rem;opacity:.9;}
+.counter-btn{background:linear-gradient(135deg,var(--ag),#FF6B6B);color:white;border:none;padding:1rem 2rem;border-radius:15px;font-weight:700;cursor:pointer;transition:all .3s;font-family:inherit;}
+.counter-btn:hover{transform:scale(1.05) translateY(-3px);box-shadow:0 10px 30px rgba(255,107,107,0.4);}
+
+.motivation-banner{background:linear-gradient(135deg,var(--ag),#FF6B6B);color:white;padding:1.2rem;border-radius:20px;text-align:center;margin:1rem 0;font-weight:700;font-size:1rem;}
+
+.subject-indicator{display:flex;justify-content:center;gap:1rem;margin:1rem 0;flex-wrap:wrap;}
+.subject-badge{padding:0.5rem 1rem;border-radius:20px;font-weight:700;font-size:0.9rem;display:flex;align-items:center;gap:0.5rem;}
+.subject-badge.chem{background:rgba(76,175,80,0.2);color:var(--sg);border:2px solid var(--sg);}
+.subject-badge.phys{background:rgba(33,150,243,0.2);color:var(--ph);border:2px solid var(--ph);}
+
+.final-message{background:linear-gradient(135deg,#9C27B0,#E91E63);color:white;padding:1.5rem;border-radius:20px;text-align:center;margin:1rem 0;font-weight:700;font-size:1.1rem;}
+
+.toast{position:fixed;bottom:340px;left:50%;transform:translateX(-50%) translateY(100px);background:var(--db);color:white;padding:1rem 2rem;border-radius:25px;font-weight:700;opacity:0;transition:all .3s;z-index:1000;white-space:nowrap;}
+.toast.show{transform:translateX(-50%) translateY(0);opacity:1;}
+
+.celebration-modal{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);display:none;align-items:center;justify-content:center;z-index:2000;}
+.celebration-modal.show{display:flex;}
+.celebration-content{background:linear-gradient(135deg,var(--ag),#FF6B6B);padding:2.5rem;border-radius:30px;text-align:center;color:white;max-width:90%;animation:bounceIn 0.5s ease;}
+@keyframes bounceIn{0%{transform:scale(0);}50%{transform:scale(1.1);}100%{transform:scale(1);}}
+.celebration-icon{font-size:4rem;margin-bottom:1rem;}
+.celebration-title{font-size:1.5rem;font-weight:900;margin-bottom:.5rem;}
+.celebration-text{font-size:1rem;margin-bottom:1.5rem;}
+.celebration-btn{background:white;color:var(--db);border:none;padding:1rem 2.5rem;border-radius:25px;font-weight:700;cursor:pointer;font-family:inherit;}
+
+.modal{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);display:none;align-items:center;justify-content:center;z-index:2000;}
+.modal.show{display:flex;}
+.modal-content{background:white;padding:2rem;border-radius:25px;max-width:90%;max-height:80vh;overflow-y:auto;width:500px;animation:slideUp 0.3s ease;}
+@keyframes slideUp{from{transform:translateY(50px);opacity:0;}to{transform:translateY(0);opacity:1;}}
+.modal-header{font-weight:800;font-size:1.3rem;color:var(--pb);margin-bottom:1rem;text-align:center;}
+.modal-close{background:var(--pb);color:white;border:none;padding:0.8rem 2rem;border-radius:12px;font-weight:700;cursor:pointer;margin-top:1rem;width:100%;font-family:inherit;}
+.stats-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;margin:1rem 0;}
+.stat-box{background:var(--lc);padding:1rem;border-radius:15px;text-align:center;}
+.stat-number{font-size:1.8rem;font-weight:900;color:var(--pb);}
+.stat-label{font-size:0.8rem;color:var(--lb);}
+.data-actions{display:flex;gap:.5rem;margin-top:1rem;}
+.data-btn{flex:1;background:var(--pb);color:white;border:none;padding:0.8rem;border-radius:10px;font-weight:700;cursor:pointer;font-size:.8rem;font-family:inherit;}
+
+.phase-content{display:none;}
+.phase-content.active{display:block;animation:fadeIn 0.4s ease;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(-10px);}to{opacity:1;transform:translateY(0);}}
+
+.bottom-bar{position:fixed;bottom:0;left:0;right:0;background:white;padding:1rem;box-shadow:0 -4px 20px rgba(0,0,0,0.1);display:flex;justify-content:center;align-items:center;gap:0.8rem;z-index:100;flex-wrap:wrap;}
+.niya-section{background:linear-gradient(135deg,var(--sp),#1B5E20);border-radius:15px;padding:0.8rem;color:white;min-width:130px;display:flex;flex-direction:column;align-items:center;gap:.4rem;}
+.niya-title{font-weight:800;font-size:.75rem;display:flex;align-items:center;gap:.3rem;}
+.niya-quote{font-size:.65rem;font-style:italic;opacity:.9;text-align:center;}
+.niya-counter{background:rgba(255,255,255,.2);padding:.3rem .8rem;border-radius:25px;font-size:1.2rem;font-weight:900;}
+.niya-btn{background:linear-gradient(135deg,#FFD700,#FFA000);color:var(--db);border:none;padding:.5rem 1rem;border-radius:10px;font-weight:700;font-size:.75rem;cursor:pointer;transition:all .3s;font-family:inherit;}
+.niya-btn:hover{transform:scale(1.08);}
+.prayer-section{background:linear-gradient(135deg,#2196F3,#1976D2);border-radius:15px;padding:0.8rem;color:white;min-width:110px;display:flex;flex-direction:column;align-items:center;gap:.4rem;}
+.prayer-title{font-weight:800;font-size:.75rem;display:flex;align-items:center;gap:.3rem;}
+.prayer-counter{background:rgba(255,255,255,.2);padding:.3rem .8rem;border-radius:25px;font-size:1.2rem;font-weight:900;}
+.prayer-btn{background:white;color:#1976D2;border:none;padding:.5rem 1rem;border-radius:10px;font-weight:700;font-size:.75rem;cursor:pointer;transition:all .3s;font-family:inherit;}
+.quran-section{background:linear-gradient(135deg,#673AB7,#512DA8);border-radius:15px;padding:0.8rem;color:white;min-width:100px;display:flex;flex-direction:column;align-items:center;gap:.4rem;}
+.quran-title{font-weight:800;font-size:.75rem;display:flex;align-items:center;gap:.3rem;}
+.quran-checkbox{width:28px;height:28px;border:3px solid white;border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1rem;transition:all 0.3s;}
+.quran-checkbox.checked{background:white;color:#673AB7;}
+.proud-section{background:linear-gradient(135deg,var(--pb),var(--db));border-radius:15px;padding:0.8rem;color:var(--cr);flex:1;min-width:160px;}
+.proud-title{font-weight:800;font-size:.75rem;margin-bottom:.5rem;display:flex;align-items:center;gap:.3rem;}
+.proud-input{width:100%;background:rgba(255,255,255,.1);border:2px solid rgba(255,255,255,.2);border-radius:10px;padding:.6rem;color:white;font-family:inherit;font-size:.75rem;resize:none;min-height:55px;}
+.proud-input:focus{outline:none;border-color:var(--ag);}
+.proud-input::placeholder{color:rgba(255,255,255,.5);}
+.report-btn{background:linear-gradient(135deg,var(--ag),#FF6B6B);color:white;border:none;padding:0.8rem 1.2rem;border-radius:12px;font-weight:700;cursor:pointer;transition:all .3s;font-size:.8rem;font-family:inherit;}
+.report-btn:hover{transform:scale(1.05);}
+
+.countdown-section{background:linear-gradient(135deg,var(--countdown-color),#D32F2F);color:white;padding:1.5rem;margin:1rem;border-radius:20px;text-align:center;}
+.countdown-title{font-size:1.2rem;font-weight:700;margin-bottom:1rem;}
+.countdown-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;}
+.countdown-box{background:rgba(255,255,255,.2);padding:1rem;border-radius:15px;}
+.countdown-number{font-size:2.5rem;font-weight:900;}
+.countdown-label{font-size:.9rem;opacity:.9;}
+
+.night-exam-badge{background:linear-gradient(135deg,#9C27B0,#E91E63);color:white;padding:.2rem .5rem;border-radius:8px;font-size:.65rem;font-weight:700;}
+
+/* هدف اليوم */
+.goal-section{background:linear-gradient(135deg,#FF6B6B,#E53935);border-radius:15px;padding:0.8rem;color:white;min-width:160px;display:flex;flex-direction:column;gap:.4rem;}
+.goal-title{font-weight:800;font-size:.75rem;display:flex;align-items:center;gap:.3rem;}
+.goal-input{width:100%;background:rgba(255,255,255,.15);border:2px solid rgba(255,255,255,.25);border-radius:10px;padding:.5rem;color:white;font-family:'Tajawal',"Segoe UI Emoji","Apple Color Emoji","Noto Color Emoji",sans-serif;font-size:.75rem;resize:none;min-height:40px;}
+.goal-input:focus{outline:none;border-color:rgba(255,255,255,.7);}
+.goal-input::placeholder{color:rgba(255,255,255,.55);}
+.goal-check-row{display:flex;align-items:center;gap:.5rem;}
+.goal-check-btn{background:rgba(255,255,255,.2);border:2px solid rgba(255,255,255,.4);border-radius:8px;color:white;padding:.3rem .7rem;font-size:.7rem;font-weight:700;cursor:pointer;transition:all .2s;font-family:inherit;flex:1;}
+.goal-check-btn.achieved{background:rgba(255,255,255,.9);color:#E53935;}
+.goal-status{font-size:.65rem;opacity:.85;text-align:center;}
+
+/* ملخص أسبوعي */
+.summary-section{margin-top:1.2rem;}
+.summary-title{font-weight:800;color:var(--pb);font-size:1rem;margin-bottom:.8rem;display:flex;align-items:center;gap:.5rem;}
+.summary-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.7rem;margin-bottom:1rem;}
+.summary-box{background:var(--lc);border-radius:12px;padding:.9rem;text-align:center;border:2px solid transparent;}
+.summary-box.chem{border-color:rgba(76,175,80,.3);}
+.summary-box.phys{border-color:rgba(33,150,243,.3);}
+.summary-box.spirit{border-color:rgba(212,175,55,.3);}
+.summary-box.streak{border-color:rgba(244,67,54,.3);}
+.summary-num{font-size:1.6rem;font-weight:900;}
+.summary-num.chem{color:var(--sg);}
+.summary-num.phys{color:var(--ph);}
+.summary-num.spirit{color:var(--ag);}
+.summary-num.streak{color:var(--dr);}
+.summary-lbl{font-size:.72rem;color:var(--lb);margin-top:.2rem;}
+.week-goals-list{background:var(--lc);border-radius:12px;padding:1rem;margin-top:.5rem;}
+.week-goals-title{font-weight:700;font-size:.85rem;color:var(--pb);margin-bottom:.6rem;}
+.goal-item-row{display:flex;justify-content:space-between;align-items:center;padding:.4rem 0;border-bottom:1px solid #eee;font-size:.8rem;}
+.goal-item-row:last-child{border-bottom:none;}
+.goal-achieved{color:var(--sg);font-weight:700;}
+.goal-missed{color:var(--dr);font-weight:700;}
+.chart-mini{margin-top:1rem;}
+.chart-mini canvas{max-height:160px;}
+
+@media(max-width:600px){
+  .bottom-bar{gap:.4rem;padding:.6rem;}
+  .niya-section,.prayer-section,.quran-section{min-width:90px;padding:.6rem;}
+  .proud-section{min-width:140px;order:5;width:100%;}
+  .report-btn{order:6;width:100%;justify-content:center;}
+}
+</style>
+</head>
+<body>
+<div class="toast" id="toast"></div>
+
+<div class="celebration-modal" id="celebrationModal">
+  <div class="celebration-content">
+    <div class="celebration-icon" id="celebrationIcon">🎉</div>
+    <div class="celebration-title" id="celebrationTitle">مبروك!</div>
+    <div class="celebration-text" id="celebrationText">أحسنت!</div>
+    <button class="celebration-btn" onclick="closeCelebration()">استمرار</button>
+  </div>
+</div>
+
+<div class="modal" id="reportModal">
+  <div class="modal-content">
+    <div class="modal-header">📊 التقرير الأسبوعي</div>
+    <div id="reportContent"></div>
+    <div class="data-actions">
+      <button class="data-btn" onclick="exportData()">📥 تصدير</button>
+      <button class="data-btn" onclick="document.getElementById('importFile').click()">📤 استيراد</button>
+      <input type="file" id="importFile" style="display:none" accept=".json" onchange="importData(this)">
+    </div>
+    <button class="modal-close" onclick="closeReport()">إغلاق</button>
+  </div>
+</div>
+
+<!-- NAV -->
+<div class="phase-nav">
+  <div class="phase-tabs">
+    <button class="phase-tab phase1 active" onclick="switchPhase(1)">المرحلة 1<div class="phase-status">مذاكرة عامة</div></button>
+    <button class="phase-tab phase2" onclick="switchPhase(2)">المرحلة 2<div class="phase-status">كيمياء عضوية / فيزياء حديثة</div></button>
+    <button class="phase-tab phase3" onclick="switchPhase(3)">المرحلة 3<div class="phase-status">مراجعة نهائية</div></button>
+    <button class="phase-tab phase4" onclick="switchPhase(4)">ليالي الامتحان<div class="phase-status">المراجعة الأخيرة</div></button>
+    <button class="phase-tab" onclick="showCountdown()" style="background:linear-gradient(135deg,var(--countdown-color),#D32F2F);color:white;">⏰ العد التنازلي</button>
+  </div>
+  <div class="current-phase-info">
+    <span id="currentPhaseText">📍 المرحلة 1 - الأسبوع 1</span>
+    <span id="nextPhaseCountdown">⏳ -- يوم على الامتحان</span>
+  </div>
+</div>
+
+<header class="header">
+  <h1 class="main-title">⚡ الريمونتادا ⚡</h1>
+  <div class="subtitle">"البداية القوية هي نصف المعركة"</div>
+</header>
+
+<!-- PHASE 1 -->
+<div class="phase-content active" id="phase1">
+  <div class="container">
+    <div class="subject-indicator">
+      <div class="subject-badge chem"><i class="fas fa-flask"></i> الكيمياء</div>
+      <div class="subject-badge phys"><i class="fas fa-atom"></i> الفيزياء</div>
+    </div>
+    <div class="motivation-banner" id="motivationBanner1">💪 كل يوم تقربك خطوة من هدفك! ابدأ بقوة!</div>
+    <div class="day-counter-section">
+      <div class="day-counter-title">📊 عداد أيام المرحلة الأولى</div>
+      <div class="day-counter">
+        <div class="counter-box"><div class="counter-number" id="dayNumber1">1</div><div class="counter-label">اليوم</div></div>
+        <button class="counter-btn" onclick="handleDayEnd(1)"><i class="fas fa-flag-checkered"></i> انتهيت من اليوم!</button>
+      </div>
+    </div>
+    <div class="progress-section">
+      <div style="display:flex;justify-content:space-between;margin-bottom:.5rem;font-weight:700;">
+        <span>نسبة إنجاز المرحلة 1</span><span id="progressPercent1">0%</span>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" id="progressFill1" style="width:0%">0%</div></div>
+    </div>
+    <div class="week-nav">
+      <button class="week-btn" onclick="changeWeek(1,-1)">&#8250;</button>
+      <div class="week-title" id="weekTitle1">الأسبوع الأول</div>
+      <button class="week-btn" onclick="changeWeek(1,1)">&#8249;</button>
+    </div>
+    <div class="schedule-card">
+      <div class="schedule-header">الجدول اليومي - المرحلة 1 (20 أبريل – 27 مايو)</div>
+      <table class="schedule-table">
+        <thead><tr><th>اليوم</th><th>التاريخ</th><th>المادة</th><th>الحصة</th></tr></thead>
+        <tbody id="scheduleBody1"></tbody>
+      </table>
+    </div>
+    <div id="tasksContainer1"></div>
+    <div class="chart-section">
+      <div class="chart-title">📈 التقدم الأسبوعي</div>
+      <canvas id="progressChart1"></canvas>
+    </div>
+  </div>
+</div>
+
+<!-- PHASE 2 -->
+<div class="phase-content" id="phase2">
+  <div class="container">
+    <div class="subject-indicator">
+      <div class="subject-badge chem"><i class="fas fa-flask"></i> كيمياء عضوية</div>
+      <div class="subject-badge phys"><i class="fas fa-atom"></i> فيزياء حديثة</div>
+    </div>
+    <div class="motivation-banner" id="motivationBanner2">🔥 المرحلة الثانية: التخصص والعمق!</div>
+    <div class="day-counter-section">
+      <div class="day-counter-title">📊 عداد أيام المرحلة الثانية</div>
+      <div class="day-counter">
+        <div class="counter-box" style="background:linear-gradient(135deg,var(--p2-color),#2E7D32);"><div class="counter-number" id="dayNumber2">1</div><div class="counter-label">اليوم</div></div>
+        <button class="counter-btn" onclick="handleDayEnd(2)"><i class="fas fa-flag-checkered"></i> انتهيت من اليوم!</button>
+      </div>
+    </div>
+    <div class="progress-section">
+      <div style="display:flex;justify-content:space-between;margin-bottom:.5rem;font-weight:700;">
+        <span>نسبة إنجاز المرحلة 2</span><span id="progressPercent2">0%</span>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" id="progressFill2" style="width:0%;background:linear-gradient(90deg,var(--p2-color),#81C784);">0%</div></div>
+    </div>
+    <div class="week-nav">
+      <button class="week-btn" onclick="changeWeek(2,-1)" style="background:var(--p2-color);">&#8250;</button>
+      <div class="week-title" id="weekTitle2">الأسبوع الأول</div>
+      <button class="week-btn" onclick="changeWeek(2,1)" style="background:var(--p2-color);">&#8249;</button>
+    </div>
+    <div class="schedule-card">
+      <div class="schedule-header" style="background:var(--p2-color);">الجدول اليومي - المرحلة 2 (27 مايو – 12 يونيو)</div>
+      <table class="schedule-table">
+        <thead><tr><th>اليوم</th><th>التاريخ</th><th>المادة</th><th>الموضوع</th></tr></thead>
+        <tbody id="scheduleBody2"></tbody>
+      </table>
+    </div>
+    <div id="tasksContainer2"></div>
+    <div class="chart-section">
+      <div class="chart-title">📈 التقدم الأسبوعي</div>
+      <canvas id="progressChart2"></canvas>
+    </div>
+  </div>
+</div>
+
+<!-- PHASE 3 -->
+<div class="phase-content" id="phase3">
+  <div class="container">
+    <div class="subject-indicator">
+      <div class="subject-badge chem"><i class="fas fa-flask"></i> الكيمياء</div>
+      <div class="subject-badge phys"><i class="fas fa-atom"></i> الفيزياء</div>
+    </div>
+    <div class="motivation-banner" id="motivationBanner3">🎯 المراجعة النهائية: استعد للامتحان!</div>
+    <div class="day-counter-section">
+      <div class="day-counter-title">📊 عداد أيام المرحلة النهائية</div>
+      <div class="day-counter">
+        <div class="counter-box" style="background:linear-gradient(135deg,#F9A825,#F57F17);"><div class="counter-number" id="dayNumber3">1</div><div class="counter-label">اليوم</div></div>
+        <button class="counter-btn" onclick="handleDayEnd(3)"><i class="fas fa-flag-checkered"></i> انتهيت من اليوم!</button>
+      </div>
+    </div>
+    <div class="progress-section">
+      <div style="display:flex;justify-content:space-between;margin-bottom:.5rem;font-weight:700;">
+        <span>نسبة إنجاز المرحلة 3</span><span id="progressPercent3">0%</span>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" id="progressFill3" style="width:0%;background:linear-gradient(90deg,#F9A825,#FFD54F);">0%</div></div>
+    </div>
+    <div class="week-nav">
+      <button class="week-btn" onclick="changeWeek(3,-1)" style="background:#F9A825;">&#8250;</button>
+      <div class="week-title" id="weekTitle3">أسبوع المراجعة</div>
+      <button class="week-btn" onclick="changeWeek(3,1)" style="background:#F9A825;">&#8249;</button>
+    </div>
+    <div class="schedule-card">
+      <div class="schedule-header" style="background:#F9A825;color:var(--db);">الجدول اليومي - المرحلة 3 (13 يونيو – 25 يونيو)</div>
+      <table class="schedule-table">
+        <thead><tr><th>اليوم</th><th>التاريخ</th><th>المادة</th><th>المهام</th></tr></thead>
+        <tbody id="scheduleBody3"></tbody>
+      </table>
+    </div>
+    <div id="tasksContainer3"></div>
+    <div class="chart-section">
+      <div class="chart-title">📈 التقدم</div>
+      <canvas id="progressChart3"></canvas>
+    </div>
+  </div>
+</div>
+
+<!-- PHASE 4 -->
+<div class="phase-content" id="phase4">
+  <div class="container">
+    <div class="final-message">🌙 هذه المحطة الأخيرة – ليالي الامتحان!</div>
+    <div class="day-counter-section">
+      <div class="day-counter-title">📊 عداد ليالي الامتحان</div>
+      <div class="day-counter">
+        <div class="counter-box" style="background:linear-gradient(135deg,var(--p4-color),#AD1457);"><div class="counter-number" id="dayNumber4">1</div><div class="counter-label">اليوم</div></div>
+        <button class="counter-btn" style="background:linear-gradient(135deg,var(--p4-color),#AD1457);" onclick="handleDayEnd(4)"><i class="fas fa-moon"></i> انتهيت من اليوم!</button>
+      </div>
+    </div>
+    <div class="progress-section">
+      <div style="display:flex;justify-content:space-between;margin-bottom:.5rem;font-weight:700;">
+        <span>نسبة إنجاز ليالي الامتحان</span><span id="progressPercent4">0%</span>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" id="progressFill4" style="width:0%;background:linear-gradient(90deg,var(--p4-color),#E91E63);">0%</div></div>
+    </div>
+    <div class="week-nav">
+      <button class="week-btn" onclick="changeWeek(4,-1)" style="background:var(--p4-color);">&#8250;</button>
+      <div class="week-title" id="weekTitle4">ليالي الكيمياء</div>
+      <button class="week-btn" onclick="changeWeek(4,1)" style="background:var(--p4-color);">&#8249;</button>
+    </div>
+    <div class="schedule-card">
+      <div class="schedule-header" style="background:var(--p4-color);">الجدول اليومي - ليالي الامتحان (26 يونيو – 1 يوليو)</div>
+      <table class="schedule-table">
+        <thead><tr><th>اليوم</th><th>التاريخ</th><th>المادة</th><th>المهام</th></tr></thead>
+        <tbody id="scheduleBody4"></tbody>
+      </table>
+    </div>
+    <div id="tasksContainer4"></div>
+    <div class="chart-section">
+      <div class="chart-title">📈 التقدم</div>
+      <canvas id="progressChart4"></canvas>
+    </div>
+  </div>
+</div>
+
+<!-- COUNTDOWN PHASE -->
+<div class="phase-content" id="countdownPhase">
+  <div class="container">
+    <div class="countdown-section">
+      <div class="countdown-title">⏰ العد التنازلي للامتحانات</div>
+      <div class="countdown-grid">
+        <div class="countdown-box"><div class="countdown-number" id="chemDaysMain">--</div><div class="countdown-label">يوم للكيمياء<br><small>2 يوليو 9:00 ص</small></div></div>
+        <div class="countdown-box"><div class="countdown-number" id="physDaysMain">--</div><div class="countdown-label">يوم للفيزياء<br><small>9 يوليو 9:00 ص</small></div></div>
+      </div>
+    </div>
+    <div class="chart-section">
+      <div class="chart-title">📊 إجمالي التقدم</div>
+      <div class="stats-grid">
+        <div class="stat-box"><div class="stat-number" id="totalTasksStat">0</div><div class="stat-label">مهمة مسجلة</div></div>
+        <div class="stat-box"><div class="stat-number" id="completedTasksStat">0</div><div class="stat-label">مهمة منجزة</div></div>
+        <div class="stat-box"><div class="stat-number" id="totalProgressStat">0%</div><div class="stat-label">نسبة الإنجاز</div></div>
+        <div class="stat-box"><div class="stat-number" id="studyDaysStat">0</div><div class="stat-label">أيام المذاكرة</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BOTTOM BAR -->
+<div class="bottom-bar">
+  <div class="niya-section">
+    <div class="niya-title"><i class="fas fa-praying-hands"></i> تجديد النية</div>
+    <div class="niya-quote">"اللهم إني نويت المذاكرة لوجهك"</div>
+    <div class="niya-counter" id="niyaCounter">0</div>
+    <button class="niya-btn" onclick="renewNiya()"><i class="fas fa-heart"></i> جدد الآن</button>
+  </div>
+  <div class="prayer-section">
+    <div class="prayer-title"><i class="fas fa-mosque"></i> الصلوات الخمس</div>
+    <div class="prayer-counter" id="prayerCounter">0</div>
+    <button class="prayer-btn" onclick="addPrayer()"><i class="fas fa-plus"></i> صلاة</button>
+  </div>
+  <div class="quran-section">
+    <div class="quran-title"><i class="fas fa-book-quran"></i> سورة اليوم</div>
+    <div class="quran-checkbox" id="quranCheckbox" onclick="toggleQuran()">
+      <i class="fas fa-check" id="quranCheck" style="display:none;"></i>
+    </div>
+  </div>
+  <div class="proud-section">
+    <div class="proud-title"><i class="fas fa-trophy"></i> إنجازاتي:</div>
+    <textarea class="proud-input" id="proudInput" placeholder="اكتب إنجازاتك..."></textarea>
+  </div>
+  <div class="goal-section">
+    <div class="goal-title"><i class="fas fa-bullseye"></i> هدف اليوم</div>
+    <textarea class="goal-input" id="goalInput" placeholder="هدفك اليوم..."></textarea>
+    <div class="goal-check-row">
+      <button class="goal-check-btn" id="goalCheckBtn" onclick="toggleGoalAchieved()">حققته ✓</button>
+    </div>
+    <div class="goal-status" id="goalStatus"></div>
+  </div>
+  <button class="report-btn" onclick="showReport()"><i class="fas fa-chart-bar"></i> التقرير</button>
+</div>
+
+<script>
+/* ===================== DATA ===================== */
+
+// PHASE 1: 38 days (19 Apr → 26 May)
+// Pattern: chem every day except Thursday = phys
+// Chemistry chapters: 1→days 1-5, 2→days 6-11, 3→days 12-17, 4→days 18-22 (all non-Thurs)
+// Physics 3 days: Thurs only → chapter 1 (3 days), chapter 2 (2 days) ← spread across phase
+
+// Integrated reviews:
+// Chem ch1: 24 Apr → 27 Apr
+// Chem ch2: 29 Apr → 2 May
+// Chem ch3: 5 May → 8 May
+// Chem ch4: 9 May → 11 May
+// Phys ch1: 16 May → 18 May
+// Phys ch2: 21 May → 23 May
+// Phys ch3: 26 May → 28 May (overlaps with phase2 but we keep in phase1 final days)
+// Phys ch4: 29 May → 1 Jun (phase2 start)
+
+const reviewRanges = {
+  chem: {
+    1: [{m:4,d:25},{m:4,d:26},{m:4,d:27},{m:4,d:28}],
+    2: [{m:4,d:30},{m:5,d:1},{m:5,d:2},{m:5,d:3}],
+    3: [{m:5,d:6},{m:5,d:7},{m:5,d:8},{m:5,d:9}],
+    4: [{m:5,d:10},{m:5,d:11},{m:5,d:12}]
+  },
+  phys: {
+    1: [{m:5,d:17},{m:5,d:18},{m:5,d:19}],
+    2: [{m:5,d:22},{m:5,d:23},{m:5,d:24}],
+    3: [{m:5,d:27},{m:5,d:28},{m:5,d:29}],
+    4: [{m:5,d:30},{m:5,d:31},{m:6,d:1},{m:6,d:2}]
+  }
+};
+
+function inReviewRange(type, chapter, month, day){
+  const ranges = reviewRanges[type][chapter];
+  if(!ranges) return false;
+  return ranges.some(r => r.m === month && r.d === day);
+}
+
+// Build phase1 schedule
+function buildPhase1(){
+  const days = [];
+  const start = new Date(2026, 3, 20); // April 20
+  const end   = new Date(2026, 4, 27); // May 27 (38 days)
+
+  let chemChapter = 1;
+  let physChapter = 1;
+  let chemLessonInChapter = 1;
+  let physLessonInChapter = 1;
+
+  // Chemistry chapter lesson counts: ch1=5, ch2=6, ch3=5, ch4=5
+  const chemChLessons = [0, 5, 6, 5, 5];
+  // Physics lesson counts: ch1=4, ch2=4
+  const physChLessons = [0, 4, 4];
+
+  const arabicDays = ['الأحد','الإثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت'];
+  const arabicMonths = ['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو'];
+
+  for(let d = new Date(start); d <= end; d.setDate(d.getDate()+1)){
+    const dow = d.getDay(); // 0=Sun
+    const mm = d.getMonth()+1;
+    const dd = d.getDate();
+    const dayName = arabicDays[dow];
+    const dateStr = `${dd} ${arabicMonths[mm-1]}`;
+
+    const isThursday = (dow === 4);
+
+    // Check review flags
+    const hasChemReview = inReviewRange('chem', chemChapter, mm, dd);
+    const hasPhysReview = isThursday ? false : inReviewRange('phys', physChapter, mm, dd);
+
+    if(isThursday){
+      // Physics day
+      const isLastPhysInCh = physLessonInChapter >= physChLessons[physChapter];
+      days.push({
+        id: days.length,
+        day: dayName, date: dateStr, month: mm, dayNum: dd,
+        subject: 'فيزياء',
+        type: 'phys',
+        lesson: `حصة ${physLessonInChapter}`,
+        chapter: physChapter,
+        lastInChapter: isLastPhysInCh,
+        chapterMsg: isLastPhysInCh ? `✓ انتهى الفصل ${physChapter} فيزياء` : null,
+        hasReview: false,
+        reviewChapters: []
+      });
+      if(isLastPhysInCh){
+        physChapter = Math.min(physChapter+1, 4);
+        physLessonInChapter = 1;
+      } else {
+        physLessonInChapter++;
+      }
+    } else {
+      // Chemistry day
+      const isLastChemInCh = chemLessonInChapter >= chemChLessons[chemChapter];
+      days.push({
+        id: days.length,
+        day: dayName, date: dateStr, month: mm, dayNum: dd,
+        subject: 'كيمياء',
+        type: 'chem',
+        lesson: `حصة ${chemLessonInChapter}`,
+        chapter: chemChapter,
+        lastInChapter: isLastChemInCh,
+        chapterMsg: isLastChemInCh ? `✓ انتهى الباب ${chemChapter} كيمياء` : null,
+        hasReview: hasChemReview,
+        reviewChapters: []
+      });
+      if(isLastChemInCh){
+        chemChapter = Math.min(chemChapter+1, 4);
+        chemLessonInChapter = 1;
+      } else {
+        chemLessonInChapter++;
+      }
+    }
+  }
+
+  // Now inject review days into existing days (not extra days)
+  // Mark days that fall in review ranges
+  days.forEach(day => {
+    day.hasChemReview = inReviewRange('chem', day.chapter, day.month, day.dayNum);
+    day.hasPhysReview = day.type === 'phys' && inReviewRange('phys', day.chapter, day.month, day.dayNum);
+    if(day.type === 'chem') day.hasPhysReview = false;
+    if(day.type === 'phys') day.hasChemReview = false;
+    day.hasReview = day.hasChemReview || day.hasPhysReview;
+  });
+
+  // Split into weeks of 7
+  const weeks = [];
+  for(let i=0; i<days.length; i+=7){
+    const slice = days.slice(i, i+7);
+    const weekNum = Math.floor(i/7)+1;
+    weeks.push({
+      id: weekNum,
+      title: `الأسبوع ${arabicNum(weekNum)} — ${slice[0].date} → ${slice[slice.length-1].date}`,
+      schedule: slice
+    });
+  }
+  return weeks;
+}
+
+function arabicNum(n){
+  const nums=['الأول','الثاني','الثالث','الرابع','الخامس','السادس'];
+  return nums[n-1]||n;
+}
+
+// PHASE 2: 17 days (27 May → 12 Jun)
+// 9 chem organic + 8 phys modern, alternating (different day each)
+const phase2Data = [
+  {
+    id: 1,
+    title: 'المرحلة 2 — 27 مايو إلى 12 يونيو',
+    schedule: [
+      {day:'الأربعاء', date:'27 مايو', subject:'كيمياء', topic:'الكيمياء العضوية – الجزء 1', type:'chem'},
+      {day:'الخميس',  date:'28 مايو', subject:'فيزياء', topic:'الفيزياء الحديثة – الجزء 1', type:'phys'},
+      {day:'الجمعة',  date:'29 مايو', subject:'كيمياء', topic:'الكيمياء العضوية – الجزء 2', type:'chem'},
+      {day:'السبت',   date:'30 مايو', subject:'فيزياء', topic:'الفيزياء الحديثة – الجزء 2', type:'phys'},
+      {day:'الأحد',   date:'31 مايو', subject:'كيمياء', topic:'الكيمياء العضوية – الجزء 3', type:'chem'},
+      {day:'الإثنين', date:'1 يونيو', subject:'فيزياء', topic:'الفيزياء الحديثة – الجزء 3', type:'phys'},
+      {day:'الثلاثاء',date:'2 يونيو', subject:'كيمياء', topic:'الكيمياء العضوية – الجزء 4', type:'chem'},
+      {day:'الأربعاء',date:'3 يونيو', subject:'فيزياء', topic:'الفيزياء الحديثة – الجزء 4', type:'phys'},
+      {day:'الخميس',  date:'4 يونيو', subject:'كيمياء', topic:'الكيمياء العضوية – الجزء 5', type:'chem'},
+      {day:'الجمعة',  date:'5 يونيو', subject:'فيزياء', topic:'الفيزياء الحديثة – الجزء 5', type:'phys'},
+      {day:'السبت',   date:'6 يونيو', subject:'كيمياء', topic:'الكيمياء العضوية – الجزء 6', type:'chem'},
+      {day:'الأحد',   date:'7 يونيو', subject:'فيزياء', topic:'الفيزياء الحديثة – الجزء 6', type:'phys'},
+      {day:'الإثنين', date:'8 يونيو', subject:'كيمياء', topic:'الكيمياء العضوية – الجزء 7', type:'chem'},
+      {day:'الثلاثاء',date:'9 يونيو', subject:'فيزياء', topic:'الفيزياء الحديثة – الجزء 7', type:'phys'},
+      {day:'الأربعاء',date:'10 يونيو',subject:'كيمياء', topic:'الكيمياء العضوية – الجزء 8', type:'chem'},
+      {day:'الخميس',  date:'11 يونيو',subject:'فيزياء', topic:'الفيزياء الحديثة – الجزء 8', type:'phys'},
+      {day:'الجمعة',  date:'12 يونيو',subject:'كيمياء', topic:'الكيمياء العضوية – الجزء 9 (ختام)', type:'chem', lastInPhase:true, phaseMsg:'✓ انتهت المرحلة 2'}
+    ]
+  }
+];
+
+// PHASE 3: 13 days (13–25 Jun), 5 chem + 8 phys, chem NOT consecutive (Mon/Wed/Thu/Sat/Sun spread)
+const phase3Data = [
+  {
+    id: 1,
+    title: 'مراجعة نهائية — 13 يونيو إلى 25 يونيو',
+    schedule: [
+      {day:'السبت',   date:'13 يونيو', subject:'فيزياء', type:'phys', chapter:1, tasks:['محاضرة','التفوق','مراجعة','الامتحان','نيوتن']},
+      {day:'الأحد',   date:'14 يونيو', subject:'كيمياء', type:'chem', chapter:1, tasks:['محاضرة','مراجعة نهائية','التفوق','الامتحان','امتحان شامل']},
+      {day:'الإثنين', date:'15 يونيو', subject:'فيزياء', type:'phys', chapter:2, tasks:['محاضرة','التفوق','مراجعة','الامتحان','نيوتن']},
+      {day:'الثلاثاء',date:'16 يونيو', subject:'فيزياء', type:'phys', chapter:3, tasks:['محاضرة','التفوق','مراجعة','الامتحان','نيوتن']},
+      {day:'الأربعاء',date:'17 يونيو', subject:'كيمياء', type:'chem', chapter:2, tasks:['محاضرة','مراجعة نهائية','التفوق','الامتحان','امتحان شامل']},
+      {day:'الخميس',  date:'18 يونيو', subject:'فيزياء', type:'phys', chapter:4, tasks:['محاضرة','التفوق','مراجعة','الامتحان','نيوتن']},
+      {day:'الجمعة',  date:'19 يونيو', subject:'كيمياء', type:'chem', chapter:3, tasks:['محاضرة','مراجعة نهائية','التفوق','الامتحان','امتحان شامل']},
+      {day:'السبت',   date:'20 يونيو', subject:'فيزياء', type:'phys', chapter:5, tasks:['محاضرة','التفوق','مراجعة','الامتحان','نيوتن']},
+      {day:'الأحد',   date:'21 يونيو', subject:'كيمياء', type:'chem', chapter:4, tasks:['محاضرة','مراجعة نهائية','التفوق','الامتحان','امتحان شامل']},
+      {day:'الإثنين', date:'22 يونيو', subject:'فيزياء', type:'phys', chapter:6, tasks:['محاضرة','التفوق','مراجعة','الامتحان','نيوتن']},
+      {day:'الثلاثاء',date:'23 يونيو', subject:'فيزياء', type:'phys', chapter:7, tasks:['محاضرة','التفوق','مراجعة','الامتحان','نيوتن']},
+      {day:'الأربعاء',date:'24 يونيو', subject:'كيمياء', type:'chem', chapter:5, tasks:['محاضرة','مراجعة نهائية','التفوق','الامتحان','امتحان شامل'], lastInChapter:true, chapterMsg:'✓ انتهت مراجعة الكيمياء'},
+      {day:'الخميس',  date:'25 يونيو', subject:'فيزياء', type:'phys', chapter:8, tasks:['محاضرة','التفوق','مراجعة','الامتحان','نيوتن'], lastInPhase:true, phaseMsg:'✓ انتهت المراجعة النهائية'}
+    ]
+  }
+];
+
+// PHASE 4: 6 days
+const phase4Data = [
+  {
+    id: 1,
+    title: 'ليالي الكيمياء — 26-28 يونيو',
+    schedule: [
+      {day:'الجمعة', date:'26 يونيو', subject:'كيمياء', type:'chem', nightExam:true, tasks:['ليالي الامتحان','مراجعة أخيرة','حل امتحان','حل الشوامل']},
+      {day:'السبت',  date:'27 يونيو', subject:'كيمياء', type:'chem', nightExam:true, tasks:['ليالي الامتحان','مراجعة أخيرة','حل امتحان','حل الشوامل']},
+      {day:'الأحد',  date:'28 يونيو', subject:'كيمياء', type:'chem', nightExam:true, tasks:['ليالي الامتحان','مراجعة أخيرة','حل امتحان','حل الشوامل'], lastInChapter:true, chapterMsg:'✓ انتهت ليالي الكيمياء'}
+    ]
+  },
+  {
+    id: 2,
+    title: 'ليالي الفيزياء — 29 يونيو - 1 يوليو',
+    schedule: [
+      {day:'الإثنين', date:'29 يونيو', subject:'فيزياء', type:'phys', nightExam:true, tasks:['ليالي الامتحان','مراجعة أخيرة','حل امتحان','حل الشوامل']},
+      {day:'الثلاثاء',date:'30 يونيو', subject:'فيزياء', type:'phys', nightExam:true, tasks:['ليالي الامتحان','مراجعة أخيرة','حل امتحان','حل الشوامل']},
+      {day:'الأربعاء',date:'1 يوليو', subject:'فيزياء', type:'phys', nightExam:true, tasks:['ليالي الامتحان','مراجعة أخيرة','حل امتحان','حل الشوامل'], lastInPhase:true, phaseMsg:'✓ بالتوفيق في الامتحان!'}
+    ]
+  }
+];
+
+/* ===================== TASK DEFINITIONS ===================== */
+const chemTasks = [
+  {id:'lecture', label:'سماع المحاضرة', icon:'fa-headphones'},
+  {id:'homework', label:'حل الواجب', icon:'fa-pen'},
+  {id:'past', label:'أسئلة سنوات سابقة', icon:'fa-graduation-cap'},
+  {id:'mandatory', label:'كتاب مندليف', icon:'fa-book'},
+  {id:'tafawok', label:'كتاب التفوق', icon:'fa-star'}
+];
+const physTasks = [
+  {id:'lecture', label:'سماع المحاضرة', icon:'fa-headphones'},
+  {id:'homework', label:'حل الواجب', icon:'fa-pen'},
+  {id:'past', label:'أسئلة سنوات سابقة', icon:'fa-graduation-cap'},
+  {id:'exambook', label:'كتاب الامتحان', icon:'fa-file-alt'},
+  {id:'tafawok', label:'كتاب التفوق', icon:'fa-star'}
+];
+const chemReviewTasks = [
+  {id:'rv_lemon',  label:'حل لمون بالنعناع',        icon:'fa-lemon'},
+  {id:'rv_daily',  label:'نص ساعة مراجعة يومية',     icon:'fa-clock'},
+  {id:'rv_final',  label:'كتاب المراجعة النهائية',   icon:'fa-book-open'},
+  {id:'rv_mand',   label:'امتحانات كتاب مندليف',     icon:'fa-flask'},
+  {id:'rv_exam',   label:'امتحانات كتاب الامتحان',   icon:'fa-file-alt'}
+];
+const physReviewTasks = [
+  {id:'rv_past', label:'كتب سنوات سابقة', icon:'fa-history'},
+  {id:'rv_final', label:'كتاب المراجعة النهائية', icon:'fa-book-open'},
+  {id:'rv_newton', label:'كتاب نيوتن', icon:'fa-apple-alt'}
+];
+const nightExamTasks = [
+  {id:'night_book', label:'كتاب ليالي الامتحان', icon:'fa-moon'},
+  {id:'final_rev', label:'مراجعة أخيرة', icon:'fa-book-open'},
+  {id:'solve_exam', label:'امتحان تجريبي', icon:'fa-file-alt'},
+  {id:'shomar', label:'حل الشوامل', icon:'fa-calculator'}
+];
+
+/* ===================== STATE ===================== */
+let currentPhase = 1;
+let currentWeek = {1:0, 2:0, 3:0, 4:0};
+let completedTasks = {1:{}, 2:{}, 3:{}, 4:{}};
+let niyaCount = 0, prayerCount = 0, quranDone = false;
+let currentDay = {1:1, 2:1, 3:1, 4:1};
+let charts = {};
+
+let phase1DataBuilt = null;
+
+function getPhaseData(phase){
+  if(phase===1){ if(!phase1DataBuilt) phase1DataBuilt=buildPhase1(); return phase1DataBuilt; }
+  if(phase===2) return phase2Data;
+  if(phase===3) return phase3Data;
+  if(phase===4) return phase4Data;
+  return [];
+}
+
+/* ===================== INIT ===================== */
+document.addEventListener('DOMContentLoaded', ()=>{
+  loadAllData();
+  [1,2,3,4].forEach(p => initPhase(p));
+  updateCountdown();
+  setInterval(updateCountdown, 60000);
+  document.getElementById('proudInput').addEventListener('input', saveProudText);
+  document.getElementById('goalInput').addEventListener('input', saveGoal);
+  loadGoal();
+  initCharts();
+  updatePhaseInfo(1);
+});
+
+function initPhase(phase){
+  renderWeek(phase);
+  updateProgress(phase);
+  updateDayCounter(phase);
+}
+
+/* ===================== SWITCH PHASE ===================== */
+function switchPhase(phase){
+  document.querySelectorAll('.phase-content').forEach(el=>el.classList.remove('active'));
+  document.querySelectorAll('.phase-tab').forEach(el=>el.classList.remove('active'));
+  if(phase==='countdown'){
+    document.getElementById('countdownPhase').classList.add('active');
+    updateOverallStats();
+  } else {
+    document.getElementById(`phase${phase}`).classList.add('active');
+    document.querySelector(`.phase-tab.phase${phase}`).classList.add('active');
+    currentPhase = phase;
+    updatePhaseInfo(phase);
+    renderWeek(phase);
+    updateChart(phase);
+    loadProudText();
+  }
+  localStorage.setItem('currentPhase', currentPhase);
+}
+
+function showCountdown(){ switchPhase('countdown'); }
+
+function updatePhaseInfo(phase){
+  const names={1:'المرحلة 1',2:'المرحلة 2',3:'المرحلة 3',4:'ليالي الامتحان'};
+  document.getElementById('currentPhaseText').textContent =
+    `📍 ${names[phase]} — أسبوع ${currentWeek[phase]+1}`;
+  const today = new Date();
+  const chemExam = new Date('2026-07-02T09:00:00');
+  const d = Math.ceil((chemExam-today)/(1000*60*60*24));
+  document.getElementById('nextPhaseCountdown').textContent =
+    d>0 ? `⏳ ${d} يوم على الكيمياء` : '🎯 بالتوفيق في الامتحان!';
+}
+
+/* ===================== RENDER ===================== */
+function renderWeek(phase){
+  const data = getPhaseData(phase);
+  if(!data || !data.length) return;
+  const wIdx = currentWeek[phase];
+  const weekData = data[wIdx];
+  if(!weekData) return;
+
+  document.getElementById(`weekTitle${phase}`).textContent = weekData.title;
+
+  // Schedule table
+  const tbody = document.getElementById(`scheduleBody${phase}`);
+  tbody.innerHTML = weekData.schedule.map(item=>{
+    const cls = item.type==='phys' ? 'subject-phys' : 'subject-chem';
+    let extras = '';
+    if(item.hasReview || item.hasChemReview || item.hasPhysReview)
+      extras += `<div style="font-size:.65rem;color:var(--ag);margin-top:2px;">📎 مراجعة مدمجة</div>`;
+    if(item.nightExam)
+      extras += `<div style="font-size:.65rem;color:var(--p4-color);margin-top:2px;">🌙 ليلة امتحان</div>`;
+    if(item.lastInChapter && item.chapterMsg)
+      extras += `<div style="font-size:.65rem;color:var(--ag);margin-top:2px;">✓ إنجاز</div>`;
+
+    let lessonText = item.lesson || item.topic || (item.tasks ? item.tasks.join(' · ') : '');
+
+    return `<tr>
+      <td style="font-weight:700;color:var(--pb);">${item.day}</td>
+      <td>${item.date}</td>
+      <td><span class="${cls}">${item.subject}</span>${extras}</td>
+      <td>${lessonText}</td>
+    </tr>`;
+  }).join('');
+
+  renderTasks(phase, weekData);
+}
+
+function renderTasks(phase, weekData){
+  const container = document.getElementById(`tasksContainer${phase}`);
+  let html = '';
+
+  weekData.schedule.forEach((day, dayIdx)=>{
+    const dayKey = `p${phase}_w${currentWeek[phase]}_d${dayIdx}`;
+
+    // Determine base tasks
+    let baseTasks = [];
+    if(phase===1){
+      baseTasks = day.type==='chem' ? [...chemTasks] : [...physTasks];
+    } else if(phase===2){
+      baseTasks = day.type==='chem' ? [...chemTasks] : [...physTasks];
+    } else if(phase===3){
+      baseTasks = (day.tasks||[]).map((t,i)=>({
+        id:`t${i}`, label:t,
+        icon: i===0?'fa-headphones':i===day.tasks.length-1?'fa-graduation-cap':'fa-book'
+      }));
+    } else if(phase===4){
+      baseTasks = [...nightExamTasks];
+    }
+
+    // Review tasks for phase 1
+    let reviewTasks = [];
+    if(phase===1 && (day.hasChemReview || day.hasPhysReview)){
+      reviewTasks = day.type==='chem' ? [...chemReviewTasks] : [...physReviewTasks];
+    }
+
+    const makeTaskHTML = (task, key, isReview) => {
+      const done = !!completedTasks[phase][key];
+      const revCls = isReview ? ' review-item' : '';
+      return `<div class="task-item${revCls}${done?' completed':''}" onclick="toggleTask(${phase},'${key}',this)">
+        <div class="checkbox">${done?'<i class="fas fa-check"></i>':''}</div>
+        <div class="task-icon"><i class="fas ${task.icon}"></i></div>
+        <div class="task-label">${task.label}</div>
+      </div>`;
+    };
+
+    let tasksContent = baseTasks.map(t => makeTaskHTML(t, `${dayKey}_${t.id}`, false)).join('');
+
+    let reviewContent = '';
+    if(reviewTasks.length){
+      reviewContent = `<div class="section-label">📚 مراجعة مدمجة – الباب ${day.chapter}</div>`;
+      reviewContent += reviewTasks.map(t => makeTaskHTML(t, `${dayKey}_rv_${t.id}`, true)).join('');
+    }
+
+    // Badge
+    let badge = '';
+    if(day.hasChemReview||day.hasPhysReview)
+      badge=`<span style="background:rgba(212,175,55,.15);color:var(--ag);padding:.15rem .4rem;border-radius:8px;font-size:.65rem;font-weight:700;">📎 مراجعة</span>`;
+    else if(day.nightExam)
+      badge=`<span class="night-exam-badge"><i class="fas fa-moon"></i> ليلة امتحان</span>`;
+
+    const subjectColor = day.type==='phys' ? 'var(--ph)' : 'var(--sg)';
+    const isFirst = dayIdx===0;
+
+    html += `<div class="day-task">
+      <div class="day-header" onclick="toggleDay(this)">
+        <div style="display:flex;align-items:center;gap:.8rem;flex-wrap:wrap;">
+          <span class="day-label" style="color:${subjectColor};">${day.day} – ${day.subject}</span>
+          ${badge}
+          <span style="color:var(--lb);font-size:.75rem;">${day.date}</span>
+        </div>
+        <i class="fas fa-chevron-down toggle-icon${isFirst?' rotated':''}"></i>
+      </div>
+      <div class="task-grid${isFirst?' expanded':''}">${tasksContent}${reviewContent}</div>
+      ${day.chapterMsg?`<div class="chapter-complete">${day.chapterMsg}</div>`:''}
+      ${day.phaseMsg?`<div class="chapter-complete">${day.phaseMsg}</div>`:''}
+      ${day.lastInPhase&&day.phaseMsg?'':''}
+    </div>`;
+  });
+
+  container.innerHTML = html;
+}
+
+/* ===================== CONTROLS ===================== */
+function changeWeek(phase, dir){
+  const data = getPhaseData(phase);
+  currentWeek[phase] += dir;
+  if(currentWeek[phase]<0) currentWeek[phase]=data.length-1;
+  if(currentWeek[phase]>=data.length) currentWeek[phase]=0;
+  renderWeek(phase);
+  updateProgress(phase);
+  localStorage.setItem(`currentWeek_${phase}`, currentWeek[phase]);
+}
+
+function toggleDay(header){
+  const grid = header.nextElementSibling;
+  const icon = header.querySelector('.toggle-icon');
+  grid.classList.toggle('expanded');
+  icon.classList.toggle('rotated');
+}
+
+function toggleTask(phase, key, el){
+  el.classList.toggle('completed');
+  const cb = el.querySelector('.checkbox');
+  if(el.classList.contains('completed')){
+    completedTasks[phase][key]=true;
+    cb.innerHTML='<i class="fas fa-check"></i>';
+  } else {
+    delete completedTasks[phase][key];
+    cb.innerHTML='';
+  }
+  localStorage.setItem(`completedTasks_${phase}`, JSON.stringify(completedTasks[phase]));
+  updateProgress(phase);
+  updateChartData(phase);
+}
+
+function updateProgress(phase){
+  const items = document.querySelectorAll(`#phase${phase} .task-item`);
+  const total = items.length;
+  const done = document.querySelectorAll(`#phase${phase} .task-item.completed`).length;
+  const pct = total>0 ? Math.round(done/total*100) : 0;
+  document.getElementById(`progressPercent${phase}`).textContent = pct+'%';
+  const fill = document.getElementById(`progressFill${phase}`);
+  fill.style.width = pct+'%';
+  fill.textContent = pct>8 ? pct+'%' : '';
+}
+
+function updateDayCounter(phase){
+  document.getElementById(`dayNumber${phase}`).textContent = currentDay[phase];
+}
+
+function handleDayEnd(phase){
+  const quotes=['✨ أحسنت! يوم ناجح!','💪 تقدم رائع!','🔥 واصل المسيرة!','⚡ أنت تقترب من هدفك!','🏆 إنجاز مميز!'];
+  showToast(quotes[Math.floor(Math.random()*quotes.length)]);
+  currentDay[phase]++;
+  localStorage.setItem(`currentDay_${phase}`, currentDay[phase]);
+  updateDayCounter(phase);
+  // reset daily trackers
+  prayerCount=0; document.getElementById('prayerCounter').textContent=0; localStorage.setItem('prayerCount',0);
+  quranDone=false; document.getElementById('quranCheckbox').classList.remove('checked'); document.getElementById('quranCheck').style.display='none'; localStorage.setItem('quranDone','false');
+}
+
+/* ===================== CHARTS ===================== */
+function initCharts(){
+  const colors={1:'#2196F3',2:'#4CAF50',3:'#F9A825',4:'#9C27B0'};
+  [1,2,3,4].forEach(phase=>{
+    const canvas = document.getElementById(`progressChart${phase}`);
+    if(!canvas) return;
+    const data = getPhaseData(phase);
+    const labels = data.map((_,i)=>`أسبوع ${i+1}`);
+    if(phase===2||phase===3||phase===4) labels[0]='الكل'; // single-week phases
+    charts[phase] = new Chart(canvas, {
+      type:'bar',
+      data:{
+        labels: labels,
+        datasets:[{
+          label:'% الإنجاز',
+          data: labels.map(()=>0),
+          backgroundColor: colors[phase]+'99',
+          borderColor: colors[phase],
+          borderWidth:2,
+          borderRadius:8
+        }]
+      },
+      options:{
+        responsive:true,
+        plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.parsed.y+'%'}}},
+        scales:{y:{beginAtZero:true,max:100,ticks:{callback:v=>v+'%'}},x:{grid:{display:false}}}
+      }
+    });
+  });
+}
+
+function updateChart(phase){
+  if(charts[phase]) updateChartData(phase);
+}
+
+function updateChartData(phase){
+  if(!charts[phase]) return;
+  const data = getPhaseData(phase);
+  const vals = data.map((_weekData, wIdx)=>{
+    // Count tasks that belong to this week by checking keys
+    const prefix = `p${phase}_w${wIdx}_`;
+    const allKeys = Object.keys(completedTasks[phase]).filter(k=>k.startsWith(prefix));
+    const doneKeys = allKeys.filter(k=>completedTasks[phase][k]);
+    // Also count rendered items for this week
+    if(wIdx === currentWeek[phase]){
+      const items = document.querySelectorAll(`#phase${phase} .task-item`).length;
+      const done = document.querySelectorAll(`#phase${phase} .task-item.completed`).length;
+      return items>0 ? Math.round(done/items*100) : 0;
+    }
+    return allKeys.length>0 ? Math.round(doneKeys.length/allKeys.length*100) : 0;
+  });
+  charts[phase].data.datasets[0].data = vals;
+  charts[phase].update();
+}
+
+/* ===================== COUNTDOWN ===================== */
+function updateCountdown(){
+  const today=new Date();
+  const chemExam=new Date('2026-07-02T09:00:00');
+  const physExam=new Date('2026-07-09T09:00:00');
+  const cd = document.getElementById('chemDaysMain');
+  const pd = document.getElementById('physDaysMain');
+  if(cd) cd.textContent=Math.max(0,Math.ceil((chemExam-today)/(86400000)));
+  if(pd) pd.textContent=Math.max(0,Math.ceil((physExam-today)/(86400000)));
+  updatePhaseInfo(currentPhase);
+}
+
+/* ===================== OVERALL STATS ===================== */
+function updateOverallStats(){
+  let total=0, done=0, days=0;
+  [1,2,3,4].forEach(p=>{
+    const keys=Object.keys(completedTasks[p]);
+    total+=keys.length;
+    done+=keys.filter(k=>completedTasks[p][k]).length;
+    days+=currentDay[p]-1;
+  });
+  const s=id=>document.getElementById(id);
+  s('totalTasksStat').textContent=total;
+  s('completedTasksStat').textContent=done;
+  s('totalProgressStat').textContent=total>0?Math.round(done/total*100)+'%':'0%';
+  s('studyDaysStat').textContent=days;
+}
+
+/* ===================== SPIRITUAL ===================== */
+function renewNiya(){
+  niyaCount++;
+  localStorage.setItem('niyaCount',niyaCount);
+  document.getElementById('niyaCounter').textContent=niyaCount;
+  showToast('✨ بارك الله فيك – نويت المذاكرة لوجهه الكريم');
+}
+function addPrayer(){
+  if(prayerCount<5){
+    prayerCount++;
+    document.getElementById('prayerCounter').textContent=prayerCount;
+    localStorage.setItem('prayerCount',prayerCount);
+    showToast(`🕌 صلاة ${prayerCount} من 5`);
+    if(prayerCount===5) setTimeout(()=>showCelebration('🕌','أحسنت!','أكملت الصلوات الخمسة'),500);
+  }
+}
+function toggleQuran(){
+  quranDone=!quranDone;
+  const cb=document.getElementById('quranCheckbox');
+  const ic=document.getElementById('quranCheck');
+  if(quranDone){cb.classList.add('checked');ic.style.display='block';showToast('📖 أحسنت! قرأت سورة اليوم');}
+  else{cb.classList.remove('checked');ic.style.display='none';}
+  localStorage.setItem('quranDone',quranDone);
+}
+
+/* ===================== PROUD TEXT ===================== */
+function saveProudText(){
+  localStorage.setItem(`proud_${currentPhase}_${currentWeek[currentPhase]}`, document.getElementById('proudInput').value);
+}
+function loadProudText(){
+  document.getElementById('proudInput').value = localStorage.getItem(`proud_${currentPhase}_${currentWeek[currentPhase]}`)||'';
+}
+
+/* ===================== هدف اليوم ===================== */
+function getTodayKey(){
+  const d=new Date();
+  return `goal_${d.getFullYear()}_${d.getMonth()}_${d.getDate()}`;
+}
+function loadGoal(){
+  const key=getTodayKey();
+  const saved=JSON.parse(localStorage.getItem(key)||'{}');
+  const inp=document.getElementById('goalInput');
+  const btn=document.getElementById('goalCheckBtn');
+  const status=document.getElementById('goalStatus');
+  if(inp) inp.value=saved.text||'';
+  if(btn){
+    if(saved.achieved){btn.classList.add('achieved');btn.textContent='تحقق ✓';}
+    else{btn.classList.remove('achieved');btn.textContent='حققته ✓';}
+  }
+  if(status) status.textContent=saved.text?(saved.achieved?'رائع! هدفك تحقق اليوم 🎉':'اجتهد لتحقق هدفك!'):'';
+}
+function saveGoal(){
+  const key=getTodayKey();
+  const saved=JSON.parse(localStorage.getItem(key)||'{}');
+  saved.text=document.getElementById('goalInput').value;
+  localStorage.setItem(key,JSON.stringify(saved));
+  const status=document.getElementById('goalStatus');
+  if(status) status.textContent=saved.text?(saved.achieved?'رائع! هدفك تحقق اليوم 🎉':'اجتهد لتحقق هدفك!'):'';
+}
+function toggleGoalAchieved(){
+  const key=getTodayKey();
+  const saved=JSON.parse(localStorage.getItem(key)||'{}');
+  saved.achieved=!saved.achieved;
+  saved.text=document.getElementById('goalInput').value;
+  localStorage.setItem(key,JSON.stringify(saved));
+  const btn=document.getElementById('goalCheckBtn');
+  const status=document.getElementById('goalStatus');
+  if(saved.achieved){
+    btn.classList.add('achieved'); btn.textContent='تحقق ✓';
+    status.textContent='رائع! هدفك تحقق اليوم 🎉';
+    showToast('🎯 أحسنت! حققت هدف اليوم!');
+  } else {
+    btn.classList.remove('achieved'); btn.textContent='حققته ✓';
+    status.textContent='اجتهد لتحقق هدفك!';
+  }
+}
+function getWeekGoals(){
+  // آخر 7 أيام
+  const goals=[];
+  for(let i=6;i>=0;i--){
+    const d=new Date(); d.setDate(d.getDate()-i);
+    const key=`goal_${d.getFullYear()}_${d.getMonth()}_${d.getDate()}`;
+    const saved=JSON.parse(localStorage.getItem(key)||'{}');
+    if(saved.text){
+      const days=['الأحد','الإثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت'];
+      goals.push({text:saved.text, achieved:!!saved.achieved, day:days[d.getDay()]});
+    }
+  }
+  return goals;
+}
+
+/* ===================== REPORT ===================== */
+function showReport(){
+  const modal=document.getElementById('reportModal');
+
+  // --- إحصائيات المراحل ---
+  let html='<div class="stats-grid">';
+  [1,2,3,4].forEach(p=>{
+    const keys=Object.keys(completedTasks[p]);
+    const done=keys.filter(k=>completedTasks[p][k]).length;
+    const pct=keys.length>0?Math.round(done/keys.length*100):0;
+    const name=p===4?'ليالي الامتحان':`المرحلة ${p}`;
+    html+=`<div class="stat-box"><div class="stat-number">${pct}%</div><div class="stat-label">${name}</div></div>`;
+  });
+  html+='</div>';
+
+  // --- ملخص أسبوعي أعمق ---
+  html+='<div class="summary-section">';
+  html+='<div class="summary-title"><i class="fas fa-chart-line"></i> الملخص الأسبوعي التفصيلي</div>';
+
+  // حساب مهام الكيمياء والفيزياء منفصلين للمرحلة الحالية
+  const p = currentPhase;
+  const wIdx = currentWeek[p];
+  const prefix = `p${p}_w${wIdx}_`;
+  const allKeys = Object.keys(completedTasks[p]).filter(k=>k.startsWith(prefix));
+  const doneKeys = allKeys.filter(k=>completedTasks[p][k]);
+
+  // فصل كيمياء وفيزياء
+  const chemDone = doneKeys.filter(k=>k.includes('_d')).length;
+  const physDone = doneKeys.filter(k=>!k.includes('rv_')).length;
+
+  // نسبة الأسبوع الحالي
+  const weekPct = allKeys.length>0?Math.round(doneKeys.length/allKeys.length*100):0;
+
+  // أيام الصلاة المسجلة هذا الأسبوع
+  const prayerDays = parseInt(localStorage.getItem('weekPrayerDays')||'0');
+  // streak
+  const streak = parseInt(localStorage.getItem('studyStreak')||'0');
+
+  html+=`<div class="summary-grid">
+    <div class="summary-box chem">
+      <div class="summary-num chem">${weekPct}%</div>
+      <div class="summary-lbl">إنجاز الأسبوع الحالي</div>
+    </div>
+    <div class="summary-box phys">
+      <div class="summary-num phys">${doneKeys.length}</div>
+      <div class="summary-lbl">مهمة أُنجزت هذا الأسبوع</div>
+    </div>
+    <div class="summary-box spirit">
+      <div class="summary-num spirit">${niyaCount}</div>
+      <div class="summary-lbl">تجديد النية (إجمالي)</div>
+    </div>
+    <div class="summary-box streak">
+      <div class="summary-num streak">${Object.values(currentDay).reduce((a,b)=>a+b,0)-4}</div>
+      <div class="summary-lbl">يوم مذاكرة إجمالي</div>
+    </div>
+  </div>`;
+
+  // --- أهداف الأسبوع ---
+  const weekGoals = getWeekGoals();
+  if(weekGoals.length>0){
+    html+='<div class="week-goals-list">';
+    html+='<div class="week-goals-title"><i class="fas fa-bullseye"></i> أهداف الأيام هذا الأسبوع</div>';
+    weekGoals.forEach(g=>{
+      const status = g.achieved
+        ? '<span class="goal-achieved">✓ تحقق</span>'
+        : '<span class="goal-missed">✗ لم يتحقق</span>';
+      html+=`<div class="goal-item-row"><span>${g.text||'—'}</span>${status}</div>`;
+    });
+    html+='</div>';
+  }
+
+  // --- رسم بياني للتقدم عبر الأسابيع ---
+  html+=`<div class="chart-mini"><canvas id="summaryChart"></canvas></div>`;
+
+  html+='</div>'; // end summary-section
+
+  // روحي
+  html+=`<p style="text-align:center;margin-top:1rem;color:var(--lb);font-size:.82rem;">
+    الصلوات: ${prayerCount}/5 اليوم &nbsp;|&nbsp; القرآن: ${quranDone?'✓ تمت':'لم تُكمل'}
+  </p>`;
+
+  document.getElementById('reportContent').innerHTML=html;
+  modal.classList.add('show');
+
+  // ارسم الـ chart بعد render
+  setTimeout(()=>{
+    const ctx=document.getElementById('summaryChart');
+    if(!ctx) return;
+    const data=getPhaseData(p);
+    const labels=data.map((_,i)=>`أسبوع ${i+1}`);
+    const vals=data.map((_,wi)=>{
+      const pref=`p${p}_w${wi}_`;
+      const ak=Object.keys(completedTasks[p]).filter(k=>k.startsWith(pref));
+      const dk=ak.filter(k=>completedTasks[p][k]);
+      if(wi===wIdx){
+        // use live DOM count
+        const items=document.querySelectorAll(`#phase${p} .task-item`).length;
+        const done=document.querySelectorAll(`#phase${p} .task-item.completed`).length;
+        return items>0?Math.round(done/items*100):0;
+      }
+      return ak.length>0?Math.round(dk.length/ak.length*100):0;
+    });
+    new Chart(ctx,{
+      type:'bar',
+      data:{
+        labels,
+        datasets:[{
+          label:'% الإنجاز',
+          data:vals,
+          backgroundColor:vals.map((_,i)=>i===wIdx?'#D4AF37':'#5D403799'),
+          borderColor:vals.map((_,i)=>i===wIdx?'#D4AF37':'#5D4037'),
+          borderWidth:2,
+          borderRadius:8
+        }]
+      },
+      options:{
+        responsive:true,
+        plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.parsed.y+'%'}}},
+        scales:{y:{beginAtZero:true,max:100,ticks:{callback:v=>v+'%'}},x:{grid:{display:false}}}
+      }
+    });
+  },100);
+}
+function closeReport(){ document.getElementById('reportModal').classList.remove('show'); }
+
+/* ===================== EXPORT / IMPORT ===================== */
+function exportData(){
+  const data={completedTasks,currentDay,currentWeek,niyaCount,prayerCount,quranDone,exportDate:new Date().toISOString()};
+  const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a'); a.href=url; a.download=`alremontada_${new Date().toISOString().split('T')[0]}.json`;
+  document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url);
+  showToast('✅ تم تصدير البيانات');
+}
+function importData(input){
+  const file=input.files[0]; if(!file) return;
+  const reader=new FileReader();
+  reader.onload=e=>{
+    try{
+      const d=JSON.parse(e.target.result);
+      if(d.completedTasks) completedTasks=d.completedTasks;
+      if(d.currentDay) currentDay=d.currentDay;
+      if(d.currentWeek) currentWeek=d.currentWeek;
+      if(d.niyaCount) niyaCount=d.niyaCount;
+      if(d.prayerCount!==undefined) prayerCount=d.prayerCount;
+      if(d.quranDone!==undefined) quranDone=d.quranDone;
+      [1,2,3,4].forEach(p=>{
+        localStorage.setItem(`completedTasks_${p}`,JSON.stringify(completedTasks[p]||{}));
+        localStorage.setItem(`currentDay_${p}`,currentDay[p]||1);
+        localStorage.setItem(`currentWeek_${p}`,currentWeek[p]||0);
+      });
+      [1,2,3,4].forEach(p=>initPhase(p));
+      document.getElementById('niyaCounter').textContent=niyaCount;
+      document.getElementById('prayerCounter').textContent=prayerCount;
+      if(quranDone){document.getElementById('quranCheckbox').classList.add('checked');document.getElementById('quranCheck').style.display='block';}
+      showToast('✅ تم استيراد البيانات'); closeReport();
+    }catch(err){ showToast('❌ خطأ في الملف'); }
+  };
+  reader.readAsText(file);
+}
+
+/* ===================== LOAD FROM STORAGE ===================== */
+function loadAllData(){
+  [1,2,3,4].forEach(p=>{
+    const ct=localStorage.getItem(`completedTasks_${p}`);
+    if(ct) completedTasks[p]=JSON.parse(ct);
+    const cd=localStorage.getItem(`currentDay_${p}`);
+    if(cd) currentDay[p]=parseInt(cd);
+    const cw=localStorage.getItem(`currentWeek_${p}`);
+    if(cw) currentWeek[p]=parseInt(cw);
+  });
+  const n=localStorage.getItem('niyaCount'); if(n){niyaCount=parseInt(n);document.getElementById('niyaCounter').textContent=niyaCount;}
+  const pr=localStorage.getItem('prayerCount'); if(pr){prayerCount=parseInt(pr);document.getElementById('prayerCounter').textContent=prayerCount;}
+  const qd=localStorage.getItem('quranDone'); if(qd==='true'){quranDone=true;document.getElementById('quranCheckbox').classList.add('checked');document.getElementById('quranCheck').style.display='block';}
+  const sp=localStorage.getItem('currentPhase'); if(sp) currentPhase=parseInt(sp);
+}
+
+/* ===================== UI UTILS ===================== */
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),3000);
+}
+function showCelebration(icon,title,text){
+  document.getElementById('celebrationIcon').textContent=icon;
+  document.getElementById('celebrationTitle').textContent=title;
+  document.getElementById('celebrationText').textContent=text;
+  document.getElementById('celebrationModal').classList.add('show');
+}
+function closeCelebration(){ document.getElementById('celebrationModal').classList.remove('show'); }
+
+window.onclick=e=>{
+  if(e.target===document.getElementById('reportModal')) closeReport();
+  if(e.target===document.getElementById('celebrationModal')) closeCelebration();
+};
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){closeReport();closeCelebration();}
+});
+</script>
+</body>
+</html>
