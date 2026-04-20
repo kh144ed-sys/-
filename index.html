@@ -1055,6 +1055,14 @@ function renderTasks(phase, weekData){
 
     const subjectColor = day.type==='phys' ? 'var(--ph)' : 'var(--sg)';
     const isFirst = dayIdx===0;
+    
+    // Get difficulty tag
+    const savedDiff = getDiffTag(phase, currentWeek[phase], dayIdx);
+    const diffTagsHTML = `<div class="diff-tag-row">
+      <span class="diff-tag easy ${savedDiff==='easy'?'selected-easy':''}" onclick="event.stopPropagation();setDiffTag(${phase},${currentWeek[phase]},${dayIdx},'easy')">سهل</span>
+      <span class="diff-tag medium ${savedDiff==='medium'?'selected-medium':''}" onclick="event.stopPropagation();setDiffTag(${phase},${currentWeek[phase]},${dayIdx},'medium')">متوسط</span>
+      <span class="diff-tag hard ${savedDiff==='hard'?'selected-hard':''}" onclick="event.stopPropagation();setDiffTag(${phase},${currentWeek[phase]},${dayIdx},'hard')">صعب</span>
+    </div>`;
 
     html += `<div class="day-task">
       <div class="day-header" onclick="toggleDay(this)">
@@ -1065,6 +1073,7 @@ function renderTasks(phase, weekData){
         </div>
         <i class="fas fa-chevron-down toggle-icon${isFirst?' rotated':''}"></i>
       </div>
+      ${diffTagsHTML}
       <div class="task-grid${isFirst?' expanded':''}">${tasksContent}${reviewContent}</div>
       ${day.chapterMsg?`<div class="chapter-complete">${day.chapterMsg}</div>`:''}
       ${day.phaseMsg?`<div class="chapter-complete">${day.phaseMsg}</div>`:''}
@@ -1072,19 +1081,6 @@ function renderTasks(phase, weekData){
   });
 
   container.innerHTML = html;
-  
-  // Add difficulty tags after rendering
-  weekData.schedule.forEach((day, dayIdx)=>{
-    const header = document.querySelector(`#tasksContainer${phase} .day-task:nth-child(${dayIdx+1}) .day-header`);
-    if(!header) return;
-    const saved = getDiffTag(phase, currentWeek[phase], dayIdx);
-    const tagHTML = `<div class="diff-tag-row" style="margin-top:.4rem;">
-      <span class="diff-tag easy ${saved==='easy'?'selected-easy':''}" onclick="setDiffTag(${phase},${currentWeek[phase]},${dayIdx},'easy');event.stopPropagation()">سهل</span>
-      <span class="diff-tag medium ${saved==='medium'?'selected-medium':''}" onclick="setDiffTag(${phase},${currentWeek[phase]},${dayIdx},'medium');event.stopPropagation()">متوسط</span>
-      <span class="diff-tag hard ${saved==='hard'?'selected-hard':''}" onclick="setDiffTag(${phase},${currentWeek[phase]},${dayIdx},'hard');event.stopPropagation()">صعب</span>
-    </div>`;
-    header.insertAdjacentHTML('afterend', tagHTML);
-  });
 }
 
 /* ===================== CONTROLS ===================== */
@@ -1099,7 +1095,7 @@ function changeWeek(phase, dir){
 }
 
 function toggleDay(header){
-  const grid = header.nextElementSibling;
+  const grid = header.nextElementSibling.nextElementSibling; // Skip diff tags
   const icon = header.querySelector('.toggle-icon');
   grid.classList.toggle('expanded');
   icon.classList.toggle('rotated');
@@ -1519,6 +1515,7 @@ function exportData(){
   URL.revokeObjectURL(url);
   showToast('✅ تم تصدير البيانات');
 }
+
 function importData(input){
   const file=input.files[0]; 
   if(!file) return;
