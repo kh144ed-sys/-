@@ -438,7 +438,7 @@ body{font-family:'Tajawal',"Segoe UI Emoji","Apple Color Emoji","Noto Color Emoj
       <button class="week-btn" onclick="changeWeek(1,1)">&#8249;</button>
     </div>
     <div class="schedule-card">
-      <div class="schedule-header">الجدول اليومي - المرحلة 1 (20 أبريل – 27 مايو)</div>
+      <div class="schedule-header">الجدول اليومي - المرحلة 1 (22 أبريل – 29 مايو)</div>
       <table class="schedule-table">
         <thead><tr><th>اليوم</th><th>التاريخ</th><th>المادة</th><th>الحصة</th></tr></thead>
         <tbody id="scheduleBody1"></tbody>
@@ -479,7 +479,7 @@ body{font-family:'Tajawal',"Segoe UI Emoji","Apple Color Emoji","Noto Color Emoj
       <button class="week-btn" onclick="changeWeek(2,1)" style="background:var(--p2-color);">&#8249;</button>
     </div>
     <div class="schedule-card">
-      <div class="schedule-header" style="background:var(--p2-color);">الجدول اليومي - المرحلة 2 (27 مايو – 12 يونيو)</div>
+      <div class="schedule-header" style="background:var(--p2-color);">الجدول اليومي - المرحلة 2 (30 مايو – 15 يونيو)</div>
       <table class="schedule-table">
         <thead><tr><th>اليوم</th><th>التاريخ</th><th>المادة</th><th>الموضوع</th></tr></thead>
         <tbody id="scheduleBody2"></tbody>
@@ -520,7 +520,7 @@ body{font-family:'Tajawal',"Segoe UI Emoji","Apple Color Emoji","Noto Color Emoj
       <button class="week-btn" onclick="changeWeek(3,1)" style="background:#F9A825;">&#8249;</button>
     </div>
     <div class="schedule-card">
-      <div class="schedule-header" style="background:#F9A825;color:var(--db);">الجدول اليومي - المرحلة 3 (13 يونيو – 25 يونيو)</div>
+      <div class="schedule-header" style="background:#F9A825;color:var(--db);">الجدول اليومي - المرحلة 3 (16 يونيو – 28 يونيو)</div>
       <table class="schedule-table">
         <thead><tr><th>اليوم</th><th>التاريخ</th><th>المادة</th><th>المهام</th></tr></thead>
         <tbody id="scheduleBody3"></tbody>
@@ -748,11 +748,11 @@ function buildPhase1() {
   const arabicMonths = ['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو'];
 
   const days = [];
-  const start = new Date(2026, 3, 20); // 20 أبريل
-  const end   = new Date(2026, 4, 27); // 27 مايو
+  const start = new Date(2026, 3, 22); // 22 أبريل
+  const end   = new Date(2026, 4, 29); // 29 مايو (38 يوم)
 
-  // Boundary: after day 24 (from 14 مايو onward), all phys
-  const physOnlyStart = new Date(2026, 4, 14); // 14 مايو
+  // Boundary: offset 25 days → 17 مايو (keeps 21 chem + 17 phys)
+  const physOnlyStart = new Date(2026, 4, 17); // 17 مايو
 
   let chemLesson = 1;
   let physLesson = 1;
@@ -866,30 +866,30 @@ const physModTasks = [
 ];
 
 // مهمة تيوتا — تُضاف 3 أيام من أيام الفيزياء في كل أسبوع (اليوم الأول والثالث والخامس من الفيزياء)
-const physTiutaTask = {id:'tiuta', label:'امتحانات تيوتا', icon:'fa-bolt'};
+const physNewtonTask = {id:'newton_3d', label:'كتاب نيوتن', icon:'fa-apple-alt'};
 
 const phase2Data = [
   {
     id: 1,
-    title: 'المرحلة 2 — 27 مايو إلى 12 يونيو',
+    title: 'المرحلة 2 — 30 مايو إلى 15 يونيو',
     schedule: [
-      {day:'الأربعاء', date:'27 مايو',   subject:'كيمياء', topic:'الكيمياء العضوية – الجزء 1',      type:'chem'},
-      {day:'الخميس',  date:'28 مايو',   subject:'فيزياء', topic:'الفيزياء الحديثة – الجزء 1',     type:'phys'},
-      {day:'الجمعة',  date:'29 مايو',   subject:'كيمياء', topic:'الكيمياء العضوية – الجزء 2',      type:'chem'},
-      {day:'السبت',   date:'30 مايو',   subject:'فيزياء', topic:'الفيزياء الحديثة – الجزء 2',     type:'phys'},
-      {day:'الأحد',   date:'31 مايو',   subject:'كيمياء', topic:'الكيمياء العضوية – الجزء 3',      type:'chem'},
-      {day:'الإثنين', date:'1 يونيو',   subject:'فيزياء', topic:'الفيزياء الحديثة – الجزء 3',     type:'phys'},
-      {day:'الثلاثاء',date:'2 يونيو',   subject:'كيمياء', topic:'الكيمياء العضوية – الجزء 4',      type:'chem'},
-      {day:'الأربعاء',date:'3 يونيو',   subject:'فيزياء', topic:'الفيزياء الحديثة – الجزء 4',     type:'phys'},
-      {day:'الخميس',  date:'4 يونيو',   subject:'كيمياء', topic:'الكيمياء العضوية – الجزء 5',      type:'chem'},
-      {day:'الجمعة',  date:'5 يونيو',   subject:'فيزياء', topic:'الفيزياء الحديثة – الجزء 5',     type:'phys'},
-      {day:'السبت',   date:'6 يونيو',   subject:'كيمياء', topic:'الكيمياء العضوية – الجزء 6',      type:'chem'},
-      {day:'الأحد',   date:'7 يونيو',   subject:'فيزياء', topic:'الفيزياء الحديثة – الجزء 6',     type:'phys'},
-      {day:'الإثنين', date:'8 يونيو',   subject:'كيمياء', topic:'الكيمياء العضوية – الجزء 7',      type:'chem'},
-      {day:'الثلاثاء',date:'9 يونيو',   subject:'فيزياء', topic:'الفيزياء الحديثة – الجزء 7',     type:'phys'},
-      {day:'الأربعاء',date:'10 يونيو',  subject:'كيمياء', topic:'الكيمياء العضوية – الجزء 8',      type:'chem'},
-      {day:'الخميس',  date:'11 يونيو',  subject:'فيزياء', topic:'الفيزياء الحديثة – الجزء 8',     type:'phys'},
-      {day:'الجمعة',  date:'12 يونيو',  subject:'كيمياء', topic:'الكيمياء العضوية – الجزء 9 (ختام)', type:'chem', lastInPhase:true, phaseMsg:'✓ انتهت المرحلة 2'}
+      {day:'السبت',   date:'30 مايو',   subject:'كيمياء', topic:'الكيمياء العضوية – الجزء 1',       type:'chem'},
+      {day:'الأحد',   date:'31 مايو',   subject:'فيزياء', topic:'الفيزياء الحديثة – الجزء 1',      type:'phys'},
+      {day:'الإثنين', date:'1 يونيو',   subject:'كيمياء', topic:'الكيمياء العضوية – الجزء 2',       type:'chem'},
+      {day:'الثلاثاء',date:'2 يونيو',   subject:'فيزياء', topic:'الفيزياء الحديثة – الجزء 2',      type:'phys'},
+      {day:'الأربعاء',date:'3 يونيو',   subject:'كيمياء', topic:'الكيمياء العضوية – الجزء 3',       type:'chem'},
+      {day:'الخميس',  date:'4 يونيو',   subject:'فيزياء', topic:'الفيزياء الحديثة – الجزء 3',      type:'phys'},
+      {day:'الجمعة',  date:'5 يونيو',   subject:'كيمياء', topic:'الكيمياء العضوية – الجزء 4',       type:'chem'},
+      {day:'السبت',   date:'6 يونيو',   subject:'فيزياء', topic:'الفيزياء الحديثة – الجزء 4',      type:'phys'},
+      {day:'الأحد',   date:'7 يونيو',   subject:'كيمياء', topic:'الكيمياء العضوية – الجزء 5',       type:'chem'},
+      {day:'الإثنين', date:'8 يونيو',   subject:'فيزياء', topic:'الفيزياء الحديثة – الجزء 5',      type:'phys'},
+      {day:'الثلاثاء',date:'9 يونيو',   subject:'كيمياء', topic:'الكيمياء العضوية – الجزء 6',       type:'chem'},
+      {day:'الأربعاء',date:'10 يونيو',  subject:'فيزياء', topic:'الفيزياء الحديثة – الجزء 6',      type:'phys'},
+      {day:'الخميس',  date:'11 يونيو',  subject:'كيمياء', topic:'الكيمياء العضوية – الجزء 7',       type:'chem'},
+      {day:'الجمعة',  date:'12 يونيو',  subject:'فيزياء', topic:'الفيزياء الحديثة – الجزء 7',      type:'phys'},
+      {day:'السبت',   date:'13 يونيو',  subject:'كيمياء', topic:'الكيمياء العضوية – الجزء 8',       type:'chem'},
+      {day:'الأحد',   date:'14 يونيو',  subject:'فيزياء', topic:'الفيزياء الحديثة – الجزء 8',      type:'phys'},
+      {day:'الإثنين', date:'15 يونيو',  subject:'كيمياء', topic:'الكيمياء العضوية – الجزء 9 (ختام)', type:'chem', lastInPhase:true, phaseMsg:'✓ انتهت المرحلة 2'}
     ]
   }
 ];
@@ -897,21 +897,21 @@ const phase2Data = [
 const phase3Data = [
   {
     id: 1,
-    title: 'مراجعة نهائية — 13 يونيو إلى 25 يونيو',
+    title: 'مراجعة نهائية — 16 يونيو إلى 28 يونيو',
     schedule: [
-      {day:'السبت',   date:'13 يونيو', subject:'فيزياء', type:'phys', chapter:1, tasks:['محاضرة','التفوق','مراجعة','الامتحان','نيوتن']},
-      {day:'الأحد',   date:'14 يونيو', subject:'كيمياء', type:'chem', chapter:1, tasks:['محاضرة','مراجعة نهائية','التفوق','الامتحان','امتحان شامل']},
-      {day:'الإثنين', date:'15 يونيو', subject:'فيزياء', type:'phys', chapter:2, tasks:['محاضرة','التفوق','مراجعة','الامتحان','نيوتن']},
-      {day:'الثلاثاء',date:'16 يونيو', subject:'فيزياء', type:'phys', chapter:3, tasks:['محاضرة','التفوق','مراجعة','الامتحان','نيوتن']},
-      {day:'الأربعاء',date:'17 يونيو', subject:'كيمياء', type:'chem', chapter:2, tasks:['محاضرة','مراجعة نهائية','التفوق','الامتحان','امتحان شامل']},
-      {day:'الخميس',  date:'18 يونيو', subject:'فيزياء', type:'phys', chapter:4, tasks:['محاضرة','التفوق','مراجعة','الامتحان','نيوتن']},
-      {day:'الجمعة',  date:'19 يونيو', subject:'كيمياء', type:'chem', chapter:3, tasks:['محاضرة','مراجعة نهائية','التفوق','الامتحان','امتحان شامل']},
-      {day:'السبت',   date:'20 يونيو', subject:'فيزياء', type:'phys', chapter:5, tasks:['محاضرة','التفوق','مراجعة','الامتحان','نيوتن']},
-      {day:'الأحد',   date:'21 يونيو', subject:'كيمياء', type:'chem', chapter:4, tasks:['محاضرة','مراجعة نهائية','التفوق','الامتحان','امتحان شامل']},
-      {day:'الإثنين', date:'22 يونيو', subject:'فيزياء', type:'phys', chapter:6, tasks:['محاضرة','التفوق','مراجعة','الامتحان','نيوتن']},
-      {day:'الثلاثاء',date:'23 يونيو', subject:'فيزياء', type:'phys', chapter:7, tasks:['محاضرة','التفوق','مراجعة','الامتحان','نيوتن']},
-      {day:'الأربعاء',date:'24 يونيو', subject:'كيمياء', type:'chem', chapter:5, tasks:['محاضرة','مراجعة نهائية','التفوق','الامتحان','امتحان شامل'], lastInChapter:true, chapterMsg:'✓ انتهت مراجعة الكيمياء'},
-      {day:'الخميس',  date:'25 يونيو', subject:'فيزياء', type:'phys', chapter:8, tasks:['محاضرة','التفوق','مراجعة','الامتحان','نيوتن'], lastInPhase:true, phaseMsg:'✓ انتهت المراجعة النهائية'}
+      {day:'الثلاثاء',date:'16 يونيو', subject:'فيزياء', type:'phys', chapter:1, tasks:['محاضرة','التفوق','مراجعة','الامتحان','نيوتن']},
+      {day:'الأربعاء',date:'17 يونيو', subject:'كيمياء', type:'chem', chapter:1, tasks:['محاضرة','مراجعة نهائية','التفوق','الامتحان','امتحان شامل']},
+      {day:'الخميس',  date:'18 يونيو', subject:'فيزياء', type:'phys', chapter:2, tasks:['محاضرة','التفوق','مراجعة','الامتحان','نيوتن']},
+      {day:'الجمعة',  date:'19 يونيو', subject:'فيزياء', type:'phys', chapter:3, tasks:['محاضرة','التفوق','مراجعة','الامتحان','نيوتن']},
+      {day:'السبت',   date:'20 يونيو', subject:'كيمياء', type:'chem', chapter:2, tasks:['محاضرة','مراجعة نهائية','التفوق','الامتحان','امتحان شامل']},
+      {day:'الأحد',   date:'21 يونيو', subject:'فيزياء', type:'phys', chapter:4, tasks:['محاضرة','التفوق','مراجعة','الامتحان','نيوتن']},
+      {day:'الإثنين', date:'22 يونيو', subject:'كيمياء', type:'chem', chapter:3, tasks:['محاضرة','مراجعة نهائية','التفوق','الامتحان','امتحان شامل']},
+      {day:'الثلاثاء',date:'23 يونيو', subject:'فيزياء', type:'phys', chapter:5, tasks:['محاضرة','التفوق','مراجعة','الامتحان','نيوتن']},
+      {day:'الأربعاء',date:'24 يونيو', subject:'كيمياء', type:'chem', chapter:4, tasks:['محاضرة','مراجعة نهائية','التفوق','الامتحان','امتحان شامل']},
+      {day:'الخميس',  date:'25 يونيو', subject:'فيزياء', type:'phys', chapter:6, tasks:['محاضرة','التفوق','مراجعة','الامتحان','نيوتن']},
+      {day:'الجمعة',  date:'26 يونيو', subject:'فيزياء', type:'phys', chapter:7, tasks:['محاضرة','التفوق','مراجعة','الامتحان','نيوتن']},
+      {day:'السبت',   date:'27 يونيو', subject:'كيمياء', type:'chem', chapter:5, tasks:['محاضرة','مراجعة نهائية','التفوق','الامتحان','امتحان شامل'], lastInChapter:true, chapterMsg:'✓ انتهت مراجعة الكيمياء'},
+      {day:'الأحد',   date:'28 يونيو', subject:'فيزياء', type:'phys', chapter:8, tasks:['محاضرة','التفوق','مراجعة','الامتحان','نيوتن'], lastInPhase:true, phaseMsg:'✓ انتهت المراجعة النهائية'}
     ]
   }
 ];
@@ -1031,7 +1031,7 @@ function renderTasks(phase, weekData) {
         baseTasks = [...physModTasks];
         // تيوتا 3 أيام من كل أسبوع: أول/ثالث/خامس يوم فيزياء (index 0,2,4)
         const physDayIdx = weekData.schedule.slice(0, dayIdx+1).filter(d=>d.type==='phys').length - 1;
-        if (physDayIdx % 2 === 0) baseTasks = [...baseTasks, physTiutaTask];
+        if (physDayIdx % 2 === 0) baseTasks = [...baseTasks, physNewtonTask];
       }
     } else if (phase===3) {
       baseTasks = (day.tasks||[]).map((t,i) => ({
