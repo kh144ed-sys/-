@@ -291,6 +291,63 @@ body{font-family:'Tajawal',"Segoe UI Emoji","Apple Color Emoji","Noto Color Emoj
   .goal-section{min-width:120px;}
   .sidebar-content{width:255px;}
 }
+
+/* ===== Progress in Header ===== */
+.phase-nav-progress{height:5px;background:#e0e0e0;border-radius:3px;margin-top:.5rem;overflow:hidden;}
+.phase-nav-progress-fill{height:100%;border-radius:3px;transition:width .5s ease;}
+
+/* ===== Stats Collapsible ===== */
+.stats-toggle-btn{width:100%;background:var(--lc);border:none;padding:.8rem 1rem;border-radius:14px;font-family:'Tajawal',sans-serif;font-weight:700;font-size:.88rem;color:var(--pb);cursor:pointer;display:flex;justify-content:space-between;align-items:center;transition:all .25s;margin:1rem 0;}
+.stats-toggle-btn:hover{background:#e8e4d9;}
+.stats-toggle-icon{transition:transform .3s;font-size:.85rem;}
+.stats-toggle-icon.open{transform:rotate(180deg);}
+.stats-collapsible{display:none;animation:fadeIn .3s ease;}
+.stats-collapsible.open{display:block;}
+.stats-inner-tabs{display:flex;gap:.5rem;margin-bottom:1rem;background:var(--lc);padding:.4rem;border-radius:12px;}
+.stats-inner-tab{flex:1;padding:.5rem;border:none;border-radius:9px;background:transparent;color:var(--lb);font-weight:700;font-size:.75rem;cursor:pointer;font-family:'Tajawal',sans-serif;transition:all .2s;}
+.stats-inner-tab.active{background:white;color:var(--pb);box-shadow:0 2px 8px rgba(0,0,0,.1);}
+.stats-panel{display:none;}
+.stats-panel.active{display:block;animation:fadeIn .25s ease;}
+
+/* ===== Counter inside Today Card ===== */
+.today-footer{display:flex;justify-content:space-between;align-items:center;margin-top:1rem;padding-top:1rem;border-top:2px dashed var(--lc);flex-wrap:wrap;gap:.6rem;}
+.today-day-count{display:flex;align-items:center;gap:.6rem;}
+.today-day-badge{background:linear-gradient(135deg,var(--pb),var(--db));color:white;padding:.4rem 1rem;border-radius:20px;font-size:.82rem;font-weight:700;}
+.today-done-btn{background:linear-gradient(135deg,var(--ag),#FF6B6B);color:white;border:none;padding:.55rem 1.2rem;border-radius:12px;font-weight:700;cursor:pointer;font-family:'Tajawal',sans-serif;font-size:.8rem;transition:all .25s;}
+.today-done-btn:hover{transform:scale(1.04);box-shadow:0 6px 18px rgba(255,107,107,.35);}
+
+/* ===== Bottom Drawer ===== */
+.bottom-bar{position:fixed;bottom:0;left:0;right:0;background:white;padding:.8rem 1rem;box-shadow:0 -4px 20px rgba(0,0,0,.1);display:flex;justify-content:center;align-items:center;gap:.7rem;z-index:100;}
+.routine-btn{background:linear-gradient(135deg,var(--pb),var(--db));color:white;border:none;padding:.85rem 1.8rem;border-radius:16px;font-weight:700;cursor:pointer;font-family:'Tajawal',sans-serif;font-size:.9rem;display:flex;align-items:center;gap:.5rem;transition:all .25s;box-shadow:0 4px 15px rgba(93,64,55,.3);}
+.routine-btn:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(93,64,55,.4);}
+.report-btn-small{background:linear-gradient(135deg,var(--ag),#FF6B6B);color:white;border:none;padding:.85rem 1.2rem;border-radius:16px;font-weight:700;cursor:pointer;font-family:'Tajawal',sans-serif;font-size:.85rem;transition:all .25s;}
+
+/* ===== Routine Drawer ===== */
+.routine-drawer-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.55);z-index:500;display:none;}
+.routine-drawer-overlay.show{display:block;}
+.routine-drawer{position:fixed;bottom:0;left:0;right:0;background:white;border-radius:28px 28px 0 0;padding:1.5rem;z-index:600;transform:translateY(100%);transition:transform .35s cubic-bezier(.25,.8,.25,1);max-height:85vh;overflow-y:auto;}
+.routine-drawer.open{transform:translateY(0);}
+.drawer-handle{width:40px;height:4px;background:#ddd;border-radius:2px;margin:0 auto .8rem;}
+.drawer-title{font-size:1.1rem;font-weight:900;color:var(--pb);text-align:center;margin-bottom:1.2rem;}
+.drawer-grid{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-bottom:1rem;}
+.drawer-item{background:var(--lc);border-radius:14px;padding:1rem;text-align:center;cursor:pointer;transition:all .25s;border:2px solid transparent;}
+.drawer-item:hover{border-color:var(--pb);transform:translateY(-2px);}
+.drawer-item-icon{font-size:1.6rem;margin-bottom:.3rem;}
+.drawer-item-label{font-size:.78rem;font-weight:700;color:var(--pb);}
+.drawer-item-sub{font-size:.65rem;color:var(--lb);margin-top:.15rem;}
+.drawer-item.active-item{background:linear-gradient(135deg,rgba(76,175,80,.12),rgba(76,175,80,.06));border-color:var(--sg);}
+.drawer-divider{height:1px;background:#eee;margin:.8rem 0;}
+.drawer-textarea-wrap{background:var(--lc);border-radius:14px;padding:1rem;margin-bottom:.8rem;}
+.drawer-textarea-label{font-size:.78rem;font-weight:700;color:var(--pb);margin-bottom:.4rem;display:flex;align-items:center;gap:.3rem;}
+.drawer-textarea{width:100%;background:white;border:2px solid #eee;border-radius:10px;padding:.6rem;font-family:'Tajawal',sans-serif;font-size:.8rem;resize:none;min-height:52px;color:var(--db);}
+.drawer-textarea:focus{outline:none;border-color:var(--pb);}
+.drawer-goal-row{display:flex;gap:.5rem;margin-top:.5rem;}
+.drawer-goal-btn{flex:1;background:linear-gradient(135deg,#FF6B6B,#E53935);color:white;border:none;padding:.55rem;border-radius:10px;font-weight:700;font-size:.75rem;cursor:pointer;font-family:'Tajawal',sans-serif;}
+.drawer-goal-btn.achieved{background:linear-gradient(135deg,var(--sg),#2E7D32);}
+
+/* ===== Morning Auto-Modal ===== */
+.morning-auto-badge{display:inline-flex;align-items:center;gap:.3rem;background:rgba(212,175,55,.15);border:1px solid rgba(212,175,55,.3);border-radius:20px;padding:.25rem .7rem;font-size:.7rem;font-weight:700;color:var(--ag);}
+
 </style>
 </head>
 <body>
@@ -348,6 +405,7 @@ body{font-family:'Tajawal',"Segoe UI Emoji","Apple Color Emoji","Noto Color Emoj
   <div class="morning-content">
     <div class="morning-header">🌅 رسالة الصباح</div>
     <div class="morning-sub" id="morningDate"></div>
+    <div id="morningHint" style="font-size:.72rem;color:rgba(255,255,255,.65);text-align:center;margin-bottom:.5rem;min-height:1rem;"></div>
     <div class="morning-prev-label">رسالة أمس:</div>
     <div class="morning-prev" id="morningPrev">لا توجد رسالة سابقة</div>
     <textarea class="morning-textarea" id="morningInput" placeholder="اكتب رسالتك لنفسك اليوم..."></textarea>
@@ -450,6 +508,9 @@ body{font-family:'Tajawal',"Segoe UI Emoji","Apple Color Emoji","Noto Color Emoj
     <span id="currentPhaseText">📍 المرحلة 1</span>
     <span id="nextPhaseCountdown">⏳ -- يوم</span>
   </div>
+  <div class="phase-nav-progress">
+    <div class="phase-nav-progress-fill" id="navProgressFill" style="width:0%;background:linear-gradient(90deg,var(--sg),var(--ag));"></div>
+  </div>
 </div>
 
 <header class="header">
@@ -486,12 +547,6 @@ body{font-family:'Tajawal',"Segoe UI Emoji","Apple Color Emoji","Noto Color Emoj
     </div>
     <div id="todayView1">
       <div id="todayCard1"></div>
-      <div class="day-counter-section" style="margin-top:1rem;">
-        <div style="font-weight:700;color:var(--pb);margin-bottom:.7rem;">📊 عداد أيام المرحلة الأولى</div>
-        <div class="day-counter">
-          <div class="counter-box"><div class="counter-number" id="dayNumber1">0</div><div class="counter-label">يوم</div></div>
-          <button class="counter-btn" onclick="handleDayEnd(1)"><i class="fas fa-flag-checkered"></i> أنهيت يومي!</button>
-        </div>
       </div>
     </div>
     <div id="weekView1" style="display:none;">
@@ -516,9 +571,21 @@ body{font-family:'Tajawal',"Segoe UI Emoji","Apple Color Emoji","Noto Color Emoj
       </div>
       <div class="progress-bar"><div class="progress-fill" id="progressFill1" style="width:0%">0%</div></div>
     </div>
-    <div class="chart-section"><div class="chart-title">📈 التقدم</div><canvas id="progressChart1"></canvas></div>
-    <div class="heatmap-section">
-      <div class="heatmap-title">🗓️ الخريطة الحرارية</div>
+    <button class="stats-toggle-btn" onclick="toggleStats(1)" id="statsBtn1">
+      <span>📊 الإحصائيات والتقدم</span>
+      <span class="stats-toggle-icon" id="statsIcon1">▼</span>
+    </button>
+    <div class="stats-collapsible" id="statsCollapsible1">
+      <div class="stats-inner-tabs">
+        <button class="stats-inner-tab active" onclick="setStatsTab(1,'chart')" id="stab1chart">📈 التقدم</button>
+        <button class="stats-inner-tab" onclick="setStatsTab(1,'heat')" id="stab1heat">🗓️ الخريطة</button>
+      </div>
+      <div class="stats-panel active" id="spanel1chart">
+        <div class="chart-section" style="margin-top:0;"><canvas id="progressChart1"></canvas></div>
+      </div>
+      <div class="stats-panel" id="spanel1heat">
+        <div class="heatmap-section" style="margin-top:0;">
+          <div class="heatmap-title">🗓️ الخريطة الحرارية</div>
       <div class="heatmap-legend">
         <span class="legend-box" style="background:#f0ece4;border:1px solid #ddd;"></span>لم يبدأ
         <span class="legend-box" style="background:#c8e6c9;"></span>1-25%
@@ -528,6 +595,9 @@ body{font-family:'Tajawal',"Segoe UI Emoji","Apple Color Emoji","Noto Color Emoj
       </div>
       <div class="heatmap-days-row"><div class="heatmap-day-label">أح</div><div class="heatmap-day-label">إث</div><div class="heatmap-day-label">ث</div><div class="heatmap-day-label">أر</div><div class="heatmap-day-label">خ</div><div class="heatmap-day-label">ج</div><div class="heatmap-day-label">س</div></div>
       <div class="heatmap-grid" id="heatmap1"></div>
+        </div>
+      </div>
+    </div>
     </div>
   </div>
 </div>
@@ -547,12 +617,6 @@ body{font-family:'Tajawal',"Segoe UI Emoji","Apple Color Emoji","Noto Color Emoj
     </div>
     <div id="todayView2">
       <div id="todayCard2"></div>
-      <div class="day-counter-section" style="margin-top:1rem;">
-        <div style="font-weight:700;color:var(--pb);margin-bottom:.7rem;">📊 عداد أيام المرحلة الثانية</div>
-        <div class="day-counter">
-          <div class="counter-box" style="background:linear-gradient(135deg,var(--p2-color),#2E7D32);"><div class="counter-number" id="dayNumber2">0</div><div class="counter-label">يوم</div></div>
-          <button class="counter-btn" style="background:linear-gradient(135deg,var(--p2-color),#81C784);" onclick="handleDayEnd(2)"><i class="fas fa-flag-checkered"></i> أنهيت يومي!</button>
-        </div>
       </div>
     </div>
     <div id="weekView2" style="display:none;">
@@ -577,12 +641,27 @@ body{font-family:'Tajawal',"Segoe UI Emoji","Apple Color Emoji","Noto Color Emoj
       </div>
       <div class="progress-bar"><div class="progress-fill" id="progressFill2" style="width:0%;background:linear-gradient(90deg,var(--p2-color),#81C784);">0%</div></div>
     </div>
-    <div class="chart-section"><div class="chart-title">📈 التقدم</div><canvas id="progressChart2"></canvas></div>
-    <div class="heatmap-section">
-      <div class="heatmap-title">🗓️ الخريطة الحرارية</div>
+    <button class="stats-toggle-btn" onclick="toggleStats(2)" id="statsBtn2">
+      <span>📊 الإحصائيات والتقدم</span>
+      <span class="stats-toggle-icon" id="statsIcon2">▼</span>
+    </button>
+    <div class="stats-collapsible" id="statsCollapsible2">
+      <div class="stats-inner-tabs">
+        <button class="stats-inner-tab active" onclick="setStatsTab(2,'chart')" id="stab2chart">📈 التقدم</button>
+        <button class="stats-inner-tab" onclick="setStatsTab(2,'heat')" id="stab2heat">🗓️ الخريطة</button>
+      </div>
+      <div class="stats-panel active" id="spanel2chart">
+        <div class="chart-section" style="margin-top:0;"><canvas id="progressChart2"></canvas></div>
+      </div>
+      <div class="stats-panel" id="spanel2heat">
+        <div class="heatmap-section" style="margin-top:0;">
+          <div class="heatmap-title">🗓️ الخريطة الحرارية</div>
       <div class="heatmap-legend"><span class="legend-box" style="background:#f0ece4;border:1px solid #ddd;"></span>لم يبدأ <span class="legend-box" style="background:#c8e6c9;"></span>1-25% <span class="legend-box" style="background:#4caf50;"></span>51-75% <span class="legend-box" style="background:#2e7d32;"></span>76-100%</div>
       <div class="heatmap-days-row"><div class="heatmap-day-label">أح</div><div class="heatmap-day-label">إث</div><div class="heatmap-day-label">ث</div><div class="heatmap-day-label">أر</div><div class="heatmap-day-label">خ</div><div class="heatmap-day-label">ج</div><div class="heatmap-day-label">س</div></div>
       <div class="heatmap-grid" id="heatmap2"></div>
+        </div>
+      </div>
+    </div>
     </div>
   </div>
 </div>
@@ -602,12 +681,6 @@ body{font-family:'Tajawal',"Segoe UI Emoji","Apple Color Emoji","Noto Color Emoj
     </div>
     <div id="todayView3">
       <div id="todayCard3"></div>
-      <div class="day-counter-section" style="margin-top:1rem;">
-        <div style="font-weight:700;color:var(--pb);margin-bottom:.7rem;">📊 عداد أيام المرحلة الثالثة</div>
-        <div class="day-counter">
-          <div class="counter-box" style="background:linear-gradient(135deg,#F9A825,#F57F17);"><div class="counter-number" id="dayNumber3">0</div><div class="counter-label">يوم</div></div>
-          <button class="counter-btn" style="background:linear-gradient(135deg,#F9A825,#FFD54F);" onclick="handleDayEnd(3)"><i class="fas fa-flag-checkered"></i> أنهيت يومي!</button>
-        </div>
       </div>
     </div>
     <div id="weekView3" style="display:none;">
@@ -632,11 +705,26 @@ body{font-family:'Tajawal',"Segoe UI Emoji","Apple Color Emoji","Noto Color Emoj
       </div>
       <div class="progress-bar"><div class="progress-fill" id="progressFill3" style="width:0%;background:linear-gradient(90deg,#F9A825,#FFD54F);">0%</div></div>
     </div>
-    <div class="chart-section"><div class="chart-title">📈 التقدم</div><canvas id="progressChart3"></canvas></div>
-    <div class="heatmap-section">
-      <div class="heatmap-title">🗓️ الخريطة الحرارية</div>
+    <button class="stats-toggle-btn" onclick="toggleStats(3)" id="statsBtn3">
+      <span>📊 الإحصائيات والتقدم</span>
+      <span class="stats-toggle-icon" id="statsIcon3">▼</span>
+    </button>
+    <div class="stats-collapsible" id="statsCollapsible3">
+      <div class="stats-inner-tabs">
+        <button class="stats-inner-tab active" onclick="setStatsTab(3,'chart')" id="stab3chart">📈 التقدم</button>
+        <button class="stats-inner-tab" onclick="setStatsTab(3,'heat')" id="stab3heat">🗓️ الخريطة</button>
+      </div>
+      <div class="stats-panel active" id="spanel3chart">
+        <div class="chart-section" style="margin-top:0;"><canvas id="progressChart3"></canvas></div>
+      </div>
+      <div class="stats-panel" id="spanel3heat">
+        <div class="heatmap-section" style="margin-top:0;">
+          <div class="heatmap-title">🗓️ الخريطة الحرارية</div>
       <div class="heatmap-days-row"><div class="heatmap-day-label">أح</div><div class="heatmap-day-label">إث</div><div class="heatmap-day-label">ث</div><div class="heatmap-day-label">أر</div><div class="heatmap-day-label">خ</div><div class="heatmap-day-label">ج</div><div class="heatmap-day-label">س</div></div>
       <div class="heatmap-grid" id="heatmap3"></div>
+        </div>
+      </div>
+    </div>
     </div>
   </div>
 </div>
@@ -652,12 +740,6 @@ body{font-family:'Tajawal',"Segoe UI Emoji","Apple Color Emoji","Noto Color Emoj
     </div>
     <div id="todayView4">
       <div id="todayCard4"></div>
-      <div class="day-counter-section" style="margin-top:1rem;">
-        <div style="font-weight:700;color:var(--pb);margin-bottom:.7rem;">📊 عداد ليالي الامتحان</div>
-        <div class="day-counter">
-          <div class="counter-box" style="background:linear-gradient(135deg,var(--p4-color),#AD1457);"><div class="counter-number" id="dayNumber4">0</div><div class="counter-label">يوم</div></div>
-          <button class="counter-btn" style="background:linear-gradient(135deg,var(--p4-color),#E91E63);" onclick="handleDayEnd(4)"><i class="fas fa-moon"></i> أنهيت يومي!</button>
-        </div>
       </div>
     </div>
     <div id="weekView4" style="display:none;">
@@ -682,11 +764,26 @@ body{font-family:'Tajawal',"Segoe UI Emoji","Apple Color Emoji","Noto Color Emoj
       </div>
       <div class="progress-bar"><div class="progress-fill" id="progressFill4" style="width:0%;background:linear-gradient(90deg,var(--p4-color),#E91E63);">0%</div></div>
     </div>
-    <div class="chart-section"><div class="chart-title">📈 التقدم</div><canvas id="progressChart4"></canvas></div>
-    <div class="heatmap-section">
-      <div class="heatmap-title">🗓️ الخريطة الحرارية</div>
+    <button class="stats-toggle-btn" onclick="toggleStats(4)" id="statsBtn4">
+      <span>📊 الإحصائيات والتقدم</span>
+      <span class="stats-toggle-icon" id="statsIcon4">▼</span>
+    </button>
+    <div class="stats-collapsible" id="statsCollapsible4">
+      <div class="stats-inner-tabs">
+        <button class="stats-inner-tab active" onclick="setStatsTab(4,'chart')" id="stab4chart">📈 التقدم</button>
+        <button class="stats-inner-tab" onclick="setStatsTab(4,'heat')" id="stab4heat">🗓️ الخريطة</button>
+      </div>
+      <div class="stats-panel active" id="spanel4chart">
+        <div class="chart-section" style="margin-top:0;"><canvas id="progressChart4"></canvas></div>
+      </div>
+      <div class="stats-panel" id="spanel4heat">
+        <div class="heatmap-section" style="margin-top:0;">
+          <div class="heatmap-title">🗓️ الخريطة الحرارية</div>
       <div class="heatmap-days-row"><div class="heatmap-day-label">أح</div><div class="heatmap-day-label">إث</div><div class="heatmap-day-label">ث</div><div class="heatmap-day-label">أر</div><div class="heatmap-day-label">خ</div><div class="heatmap-day-label">ج</div><div class="heatmap-day-label">س</div></div>
       <div class="heatmap-grid" id="heatmap4"></div>
+        </div>
+      </div>
+    </div>
     </div>
   </div>
 </div>
@@ -736,21 +833,57 @@ body{font-family:'Tajawal',"Segoe UI Emoji","Apple Color Emoji","Noto Color Emoj
   </div>
 </div>
 
+<!-- ROUTINE DRAWER OVERLAY -->
+<div class="routine-drawer-overlay" id="routineOverlay" onclick="closeDrawer()"></div>
+
+<!-- ROUTINE DRAWER -->
+<div class="routine-drawer" id="routineDrawer">
+  <div class="drawer-handle"></div>
+  <div class="drawer-title">📋 روتيني اليومي</div>
+  <div class="drawer-grid">
+    <div class="drawer-item" id="drawerNiya" onclick="renewNiya()">
+      <div class="drawer-item-icon">🤲</div>
+      <div class="drawer-item-label">تجديد النية</div>
+      <div class="drawer-item-sub">العدد: <span id="drawerNiyaCount">0</span></div>
+    </div>
+    <div class="drawer-item" id="drawerPrayer" onclick="addPrayer()">
+      <div class="drawer-item-icon">🕌</div>
+      <div class="drawer-item-label">الصلوات الخمس</div>
+      <div class="drawer-item-sub"><span id="drawerPrayerCount">0</span>/5 صلوات</div>
+    </div>
+    <div class="drawer-item" id="drawerQuran" onclick="toggleQuran()">
+      <div class="drawer-item-icon">📖</div>
+      <div class="drawer-item-label">سورة اليوم</div>
+      <div class="drawer-item-sub" id="drawerQuranStatus">لم تُكمل</div>
+    </div>
+    <div class="drawer-item" onclick="openMorningModal();closeDrawer();">
+      <div class="drawer-item-icon">🌅</div>
+      <div class="drawer-item-label">رسالة الصباح</div>
+      <div class="drawer-item-sub" id="drawerMorningStatus">اكتب رسالتك</div>
+    </div>
+  </div>
+  <div class="drawer-divider"></div>
+  <div class="drawer-textarea-wrap">
+    <div class="drawer-textarea-label"><i class="fas fa-trophy" style="color:var(--ag);"></i> إنجازاتي اليوم</div>
+    <textarea class="drawer-textarea" id="proudInput" placeholder="ماذا أنجزت اليوم؟"></textarea>
+  </div>
+  <div class="drawer-textarea-wrap">
+    <div class="drawer-textarea-label"><i class="fas fa-bullseye" style="color:var(--dr);"></i> هدف اليوم</div>
+    <textarea class="drawer-textarea" id="goalInput" placeholder="هدفك اليوم..."></textarea>
+    <div class="drawer-goal-row">
+      <button class="drawer-goal-btn" id="goalCheckBtn" onclick="toggleGoalAchieved()">حققته ✓</button>
+    </div>
+    <div style="font-size:.65rem;color:var(--sg);margin-top:.3rem;text-align:center;" id="goalStatus"></div>
+  </div>
+</div>
+
 <!-- BOTTOM BAR -->
 <div class="bottom-bar">
-  <div class="proud-section">
-    <div class="proud-title"><i class="fas fa-trophy"></i> إنجازاتي:</div>
-    <textarea class="proud-input" id="proudInput" placeholder="اكتب إنجازاتك..."></textarea>
-  </div>
-  <div class="goal-section">
-    <div class="goal-title"><i class="fas fa-bullseye"></i> هدف اليوم</div>
-    <textarea class="goal-input" id="goalInput" placeholder="هدفك اليوم..."></textarea>
-    <div style="display:flex;gap:.4rem;">
-      <button class="goal-check-btn" id="goalCheckBtn" onclick="toggleGoalAchieved()">حققته ✓</button>
-    </div>
-    <div class="goal-status" id="goalStatus"></div>
-  </div>
-  <button class="report-btn" onclick="showReport()"><i class="fas fa-chart-bar"></i> التقرير</button>
+  <button class="routine-btn" onclick="openDrawer()">
+    <i class="fas fa-list-check"></i> روتيني
+    <span id="routineBadge" style="background:rgba(255,255,255,.3);padding:.1rem .5rem;border-radius:20px;font-size:.72rem;margin-right:.2rem;">0</span>
+  </button>
+  <button class="report-btn-small" onclick="showReport()"><i class="fas fa-chart-bar"></i></button>
 </div>
 
 <script>
@@ -773,9 +906,9 @@ function buildPhase1() {
   const arabicDays = ['الأحد','الإثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت'];
   const arabicMonths = ['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو'];
   const days = [];
-  const start = new Date(2026, 3, 22); // 22 أبريل
-  const end   = new Date(2026, 4, 29); // 29 مايو (38 يوم)
-  const physOnlyStart = new Date(2026, 4, 17); // 17 مايو
+  const start = new Date(2026, 3, 23); // 23 أبريل
+  const end   = new Date(2026, 4, 30); // 30 مايو (38 يوم)
+  const physOnlyStart = new Date(2026, 4, 18); // 18 مايو
   let chemLesson = 1, physLesson = 1;
   for (let d = new Date(start); d <= end; d.setDate(d.getDate() + 1)) {
     const dow = d.getDay(), mm = d.getMonth()+1, dd = d.getDate();
@@ -819,77 +952,77 @@ const physModTasks = [
 const physNewtonTask = {id:'newton_3d', label:'كتاب نيوتن', icon:'fa-apple-alt'};
 
 const phase2Data = [{
-  id:1, title:'المرحلة 2 — 30 مايو إلى 15 يونيو',
+  id:1, title:'المرحلة 2 — 31 مايو إلى 16 يونيو',
   schedule:[
-    {day:'السبت',   date:'30 مايو',  subject:'كيمياء', topic:'الكيمياء العضوية – الجزء 1', type:'chem', jsDate: new Date(2026,4,30)},
-    {day:'الأحد',   date:'31 مايو',  subject:'فيزياء', topic:'الفيزياء الحديثة – الجزء 1', type:'phys', jsDate: new Date(2026,4,31)},
-    {day:'الإثنين', date:'1 يونيو',  subject:'كيمياء', topic:'الكيمياء العضوية – الجزء 2', type:'chem', jsDate: new Date(2026,5,1)},
-    {day:'الثلاثاء',date:'2 يونيو',  subject:'فيزياء', topic:'الفيزياء الحديثة – الجزء 2', type:'phys', jsDate: new Date(2026,5,2)},
-    {day:'الأربعاء',date:'3 يونيو',  subject:'كيمياء', topic:'الكيمياء العضوية – الجزء 3', type:'chem', jsDate: new Date(2026,5,3)},
-    {day:'الخميس',  date:'4 يونيو',  subject:'فيزياء', topic:'الفيزياء الحديثة – الجزء 3', type:'phys', jsDate: new Date(2026,5,4)},
-    {day:'الجمعة',  date:'5 يونيو',  subject:'كيمياء', topic:'الكيمياء العضوية – الجزء 4', type:'chem', jsDate: new Date(2026,5,5)},
-    {day:'السبت',   date:'6 يونيو',  subject:'فيزياء', topic:'الفيزياء الحديثة – الجزء 4', type:'phys', jsDate: new Date(2026,5,6)},
-    {day:'الأحد',   date:'7 يونيو',  subject:'كيمياء', topic:'الكيمياء العضوية – الجزء 5', type:'chem', jsDate: new Date(2026,5,7)},
-    {day:'الإثنين', date:'8 يونيو',  subject:'فيزياء', topic:'الفيزياء الحديثة – الجزء 5', type:'phys', jsDate: new Date(2026,5,8)},
-    {day:'الثلاثاء',date:'9 يونيو',  subject:'كيمياء', topic:'الكيمياء العضوية – الجزء 6', type:'chem', jsDate: new Date(2026,5,9)},
-    {day:'الأربعاء',date:'10 يونيو', subject:'فيزياء', topic:'الفيزياء الحديثة – الجزء 6', type:'phys', jsDate: new Date(2026,5,10)},
-    {day:'الخميس',  date:'11 يونيو', subject:'كيمياء', topic:'الكيمياء العضوية – الجزء 7', type:'chem', jsDate: new Date(2026,5,11)},
-    {day:'الجمعة',  date:'12 يونيو', subject:'فيزياء', topic:'الفيزياء الحديثة – الجزء 7', type:'phys', jsDate: new Date(2026,5,12)},
-    {day:'السبت',   date:'13 يونيو', subject:'كيمياء', topic:'الكيمياء العضوية – الجزء 8', type:'chem', jsDate: new Date(2026,5,13)},
-    {day:'الأحد',   date:'14 يونيو', subject:'فيزياء', topic:'الفيزياء الحديثة – الجزء 8', type:'phys', jsDate: new Date(2026,5,14)},
-    {day:'الإثنين', date:'15 يونيو', subject:'كيمياء', topic:'الكيمياء العضوية – الجزء 9 (ختام)', type:'chem', jsDate: new Date(2026,5,15), lastInPhase:true, phaseMsg:'✓ انتهت المرحلة 2'}
+    {day:'السبت',   date:'31 مايو',  subject:'كيمياء', topic:'الكيمياء العضوية – الجزء 1', type:'chem', jsDate: new Date(2026,4,31)},
+    {day:'الأحد',   date:'1 يونيو',  subject:'فيزياء', topic:'الفيزياء الحديثة – الجزء 1', type:'phys', jsDate: new Date(2026,5,1)},
+    {day:'الإثنين', date:'2 يونيو',  subject:'كيمياء', topic:'الكيمياء العضوية – الجزء 2', type:'chem', jsDate: new Date(2026,5,2)},
+    {day:'الثلاثاء',date:'3 يونيو',  subject:'فيزياء', topic:'الفيزياء الحديثة – الجزء 2', type:'phys', jsDate: new Date(2026,5,3)},
+    {day:'الأربعاء',date:'4 يونيو',  subject:'كيمياء', topic:'الكيمياء العضوية – الجزء 3', type:'chem', jsDate: new Date(2026,5,4)},
+    {day:'الخميس',  date:'5 يونيو',  subject:'فيزياء', topic:'الفيزياء الحديثة – الجزء 3', type:'phys', jsDate: new Date(2026,5,5)},
+    {day:'الجمعة',  date:'6 يونيو',  subject:'كيمياء', topic:'الكيمياء العضوية – الجزء 4', type:'chem', jsDate: new Date(2026,5,6)},
+    {day:'السبت',   date:'7 يونيو',  subject:'فيزياء', topic:'الفيزياء الحديثة – الجزء 4', type:'phys', jsDate: new Date(2026,5,7)},
+    {day:'الأحد',   date:'8 يونيو',  subject:'كيمياء', topic:'الكيمياء العضوية – الجزء 5', type:'chem', jsDate: new Date(2026,5,8)},
+    {day:'الإثنين', date:'9 يونيو',  subject:'فيزياء', topic:'الفيزياء الحديثة – الجزء 5', type:'phys', jsDate: new Date(2026,5,9)},
+    {day:'الثلاثاء',date:'10 يونيو',  subject:'كيمياء', topic:'الكيمياء العضوية – الجزء 6', type:'chem', jsDate: new Date(2026,5,10)},
+    {day:'الأربعاء',date:'11 يونيو', subject:'فيزياء', topic:'الفيزياء الحديثة – الجزء 6', type:'phys', jsDate: new Date(2026,5,11)},
+    {day:'الخميس',  date:'12 يونيو', subject:'كيمياء', topic:'الكيمياء العضوية – الجزء 7', type:'chem', jsDate: new Date(2026,5,12)},
+    {day:'الجمعة',  date:'13 يونيو', subject:'فيزياء', topic:'الفيزياء الحديثة – الجزء 7', type:'phys', jsDate: new Date(2026,5,13)},
+    {day:'السبت',   date:'14 يونيو', subject:'كيمياء', topic:'الكيمياء العضوية – الجزء 8', type:'chem', jsDate: new Date(2026,5,14)},
+    {day:'الأحد',   date:'15 يونيو', subject:'فيزياء', topic:'الفيزياء الحديثة – الجزء 8', type:'phys', jsDate: new Date(2026,5,15)},
+    {day:'الإثنين', date:'16 يونيو', subject:'كيمياء', topic:'الكيمياء العضوية – الجزء 9 (ختام)', type:'chem', jsDate: new Date(2026,5,16), lastInPhase:true, phaseMsg:'✓ انتهت المرحلة 2'}
   ]
 }];
 
 const phase3Data = [{
-  id:1, title:'مراجعة نهائية — 16 يونيو إلى 28 يونيو',
+  id:1, title:'مراجعة نهائية — 17 يونيو إلى 29 يونيو',
   schedule:[
-    {day:'الثلاثاء',date:'16 يونيو', subject:'فيزياء', type:'phys', chapter:1, jsDate:new Date(2026,5,16),
+    {day:'الثلاثاء',date:'17 يونيو', subject:'فيزياء', type:'phys', chapter:1, jsDate:new Date(2026,5,17),
       tasks:[{id:'lecture',label:'سماع المحاضرة',icon:'fa-headphones'},{id:'tafawok',label:'كتاب التفوق',icon:'fa-star'},{id:'review',label:'مراجعة سريعة',icon:'fa-book-open'},{id:'exam',label:'كتاب الامتحان',icon:'fa-file-alt'},{id:'newton',label:'كتاب نيوتن',icon:'fa-apple-alt'}]},
-    {day:'الأربعاء',date:'17 يونيو', subject:'كيمياء', type:'chem', chapter:1, jsDate:new Date(2026,5,17),
+    {day:'الأربعاء',date:'18 يونيو', subject:'كيمياء', type:'chem', chapter:1, jsDate:new Date(2026,5,18),
       tasks:[{id:'lecture',label:'سماع المحاضرة',icon:'fa-headphones'},{id:'final_rev',label:'مراجعة نهائية',icon:'fa-book-open'},{id:'tafawok',label:'كتاب التفوق',icon:'fa-star'},{id:'exam',label:'كتاب الامتحان',icon:'fa-file-alt'},{id:'full_exam',label:'امتحان شامل',icon:'fa-graduation-cap'}]},
-    {day:'الخميس',  date:'18 يونيو', subject:'فيزياء', type:'phys', chapter:2, jsDate:new Date(2026,5,18),
+    {day:'الخميس',  date:'19 يونيو', subject:'فيزياء', type:'phys', chapter:2, jsDate:new Date(2026,5,19),
       tasks:[{id:'lecture',label:'سماع المحاضرة',icon:'fa-headphones'},{id:'tafawok',label:'كتاب التفوق',icon:'fa-star'},{id:'review',label:'مراجعة سريعة',icon:'fa-book-open'},{id:'exam',label:'كتاب الامتحان',icon:'fa-file-alt'},{id:'newton',label:'كتاب نيوتن',icon:'fa-apple-alt'}]},
-    {day:'الجمعة',  date:'19 يونيو', subject:'فيزياء', type:'phys', chapter:3, jsDate:new Date(2026,5,19),
+    {day:'الجمعة',  date:'20 يونيو', subject:'فيزياء', type:'phys', chapter:3, jsDate:new Date(2026,5,20),
       tasks:[{id:'lecture',label:'سماع المحاضرة',icon:'fa-headphones'},{id:'tafawok',label:'كتاب التفوق',icon:'fa-star'},{id:'review',label:'مراجعة سريعة',icon:'fa-book-open'},{id:'exam',label:'كتاب الامتحان',icon:'fa-file-alt'},{id:'newton',label:'كتاب نيوتن',icon:'fa-apple-alt'}]},
-    {day:'السبت',   date:'20 يونيو', subject:'كيمياء', type:'chem', chapter:2, jsDate:new Date(2026,5,20),
+    {day:'السبت',   date:'21 يونيو', subject:'كيمياء', type:'chem', chapter:2, jsDate:new Date(2026,5,21),
       tasks:[{id:'lecture',label:'سماع المحاضرة',icon:'fa-headphones'},{id:'final_rev',label:'مراجعة نهائية',icon:'fa-book-open'},{id:'tafawok',label:'كتاب التفوق',icon:'fa-star'},{id:'exam',label:'كتاب الامتحان',icon:'fa-file-alt'},{id:'full_exam',label:'امتحان شامل',icon:'fa-graduation-cap'}]},
-    {day:'الأحد',   date:'21 يونيو', subject:'فيزياء', type:'phys', chapter:4, jsDate:new Date(2026,5,21),
+    {day:'الأحد',   date:'22 يونيو', subject:'فيزياء', type:'phys', chapter:4, jsDate:new Date(2026,5,22),
       tasks:[{id:'lecture',label:'سماع المحاضرة',icon:'fa-headphones'},{id:'tafawok',label:'كتاب التفوق',icon:'fa-star'},{id:'review',label:'مراجعة سريعة',icon:'fa-book-open'},{id:'exam',label:'كتاب الامتحان',icon:'fa-file-alt'},{id:'newton',label:'كتاب نيوتن',icon:'fa-apple-alt'}]},
-    {day:'الإثنين', date:'22 يونيو', subject:'كيمياء', type:'chem', chapter:3, jsDate:new Date(2026,5,22),
+    {day:'الإثنين', date:'23 يونيو', subject:'كيمياء', type:'chem', chapter:3, jsDate:new Date(2026,5,23),
       tasks:[{id:'lecture',label:'سماع المحاضرة',icon:'fa-headphones'},{id:'final_rev',label:'مراجعة نهائية',icon:'fa-book-open'},{id:'tafawok',label:'كتاب التفوق',icon:'fa-star'},{id:'exam',label:'كتاب الامتحان',icon:'fa-file-alt'},{id:'full_exam',label:'امتحان شامل',icon:'fa-graduation-cap'}]},
-    {day:'الثلاثاء',date:'23 يونيو', subject:'فيزياء', type:'phys', chapter:5, jsDate:new Date(2026,5,23),
+    {day:'الثلاثاء',date:'24 يونيو', subject:'فيزياء', type:'phys', chapter:5, jsDate:new Date(2026,5,24),
       tasks:[{id:'lecture',label:'سماع المحاضرة',icon:'fa-headphones'},{id:'tafawok',label:'كتاب التفوق',icon:'fa-star'},{id:'review',label:'مراجعة سريعة',icon:'fa-book-open'},{id:'exam',label:'كتاب الامتحان',icon:'fa-file-alt'},{id:'newton',label:'كتاب نيوتن',icon:'fa-apple-alt'}]},
-    {day:'الأربعاء',date:'24 يونيو', subject:'كيمياء', type:'chem', chapter:4, jsDate:new Date(2026,5,24),
+    {day:'الأربعاء',date:'25 يونيو', subject:'كيمياء', type:'chem', chapter:4, jsDate:new Date(2026,5,25),
       tasks:[{id:'lecture',label:'سماع المحاضرة',icon:'fa-headphones'},{id:'final_rev',label:'مراجعة نهائية',icon:'fa-book-open'},{id:'tafawok',label:'كتاب التفوق',icon:'fa-star'},{id:'exam',label:'كتاب الامتحان',icon:'fa-file-alt'},{id:'full_exam',label:'امتحان شامل',icon:'fa-graduation-cap'}]},
-    {day:'الخميس',  date:'25 يونيو', subject:'فيزياء', type:'phys', chapter:6, jsDate:new Date(2026,5,25),
+    {day:'الخميس',  date:'26 يونيو', subject:'فيزياء', type:'phys', chapter:6, jsDate:new Date(2026,5,26),
       tasks:[{id:'lecture',label:'سماع المحاضرة',icon:'fa-headphones'},{id:'tafawok',label:'كتاب التفوق',icon:'fa-star'},{id:'review',label:'مراجعة سريعة',icon:'fa-book-open'},{id:'exam',label:'كتاب الامتحان',icon:'fa-file-alt'},{id:'newton',label:'كتاب نيوتن',icon:'fa-apple-alt'}]},
-    {day:'الجمعة',  date:'26 يونيو', subject:'فيزياء', type:'phys', chapter:7, jsDate:new Date(2026,5,26),
+    {day:'الجمعة',  date:'27 يونيو', subject:'فيزياء', type:'phys', chapter:7, jsDate:new Date(2026,5,27),
       tasks:[{id:'lecture',label:'سماع المحاضرة',icon:'fa-headphones'},{id:'tafawok',label:'كتاب التفوق',icon:'fa-star'},{id:'review',label:'مراجعة سريعة',icon:'fa-book-open'},{id:'exam',label:'كتاب الامتحان',icon:'fa-file-alt'},{id:'newton',label:'كتاب نيوتن',icon:'fa-apple-alt'}]},
-    {day:'السبت',   date:'27 يونيو', subject:'كيمياء', type:'chem', chapter:5, jsDate:new Date(2026,5,27), lastInChapter:true, chapterMsg:'✓ انتهت مراجعة الكيمياء',
+    {day:'السبت',   date:'28 يونيو', subject:'كيمياء', type:'chem', chapter:5, jsDate:new Date(2026,5,28), lastInChapter:true, chapterMsg:'✓ انتهت مراجعة الكيمياء',
       tasks:[{id:'lecture',label:'سماع المحاضرة',icon:'fa-headphones'},{id:'final_rev',label:'مراجعة نهائية',icon:'fa-book-open'},{id:'tafawok',label:'كتاب التفوق',icon:'fa-star'},{id:'exam',label:'كتاب الامتحان',icon:'fa-file-alt'},{id:'full_exam',label:'امتحان شامل',icon:'fa-graduation-cap'}]},
-    {day:'الأحد',   date:'28 يونيو', subject:'فيزياء', type:'phys', chapter:8, jsDate:new Date(2026,5,28), lastInPhase:true, phaseMsg:'✓ انتهت المراجعة النهائية',
+    {day:'الأحد',   date:'29 يونيو', subject:'فيزياء', type:'phys', chapter:8, jsDate:new Date(2026,5,29), lastInPhase:true, phaseMsg:'✓ انتهت المراجعة النهائية',
       tasks:[{id:'lecture',label:'سماع المحاضرة',icon:'fa-headphones'},{id:'tafawok',label:'كتاب التفوق',icon:'fa-star'},{id:'review',label:'مراجعة سريعة',icon:'fa-book-open'},{id:'exam',label:'كتاب الامتحان',icon:'fa-file-alt'},{id:'newton',label:'كتاب نيوتن',icon:'fa-apple-alt'}]}
   ]
 }];
 
 const phase4Data = [
-  {id:1, title:'ليالي الكيمياء — 26-28 يونيو',
+  {id:1, title:'ليالي الكيمياء — 28-30 يونيو',
     schedule:[
-      {day:'الجمعة',date:'26 يونيو',subject:'كيمياء',type:'chem',nightExam:true, jsDate:new Date(2026,5,26),
+      {day:'السبت',date:'28 يونيو',subject:'كيمياء',type:'chem',nightExam:true, jsDate:new Date(2026,5,28),
         tasks:[{id:'night_book',label:'كتاب ليالي الامتحان',icon:'fa-moon'},{id:'final_rev',label:'مراجعة أخيرة',icon:'fa-book-open'},{id:'solve_exam',label:'امتحان تجريبي',icon:'fa-file-alt'},{id:'shomar',label:'حل الشوامل',icon:'fa-calculator'}]},
-      {day:'السبت',date:'27 يونيو',subject:'كيمياء',type:'chem',nightExam:true, jsDate:new Date(2026,5,27),
+      {day:'الأحد',date:'29 يونيو',subject:'كيمياء',type:'chem',nightExam:true, jsDate:new Date(2026,5,29),
         tasks:[{id:'night_book',label:'كتاب ليالي الامتحان',icon:'fa-moon'},{id:'final_rev',label:'مراجعة أخيرة',icon:'fa-book-open'},{id:'solve_exam',label:'امتحان تجريبي',icon:'fa-file-alt'},{id:'shomar',label:'حل الشوامل',icon:'fa-calculator'}]},
-      {day:'الأحد',date:'28 يونيو',subject:'كيمياء',type:'chem',nightExam:true, jsDate:new Date(2026,5,28),lastInChapter:true,chapterMsg:'✓ انتهت ليالي الكيمياء',
+      {day:'الإثنين',date:'30 يونيو',subject:'كيمياء',type:'chem',nightExam:true, jsDate:new Date(2026,5,30),lastInChapter:true,chapterMsg:'✓ انتهت ليالي الكيمياء',
         tasks:[{id:'night_book',label:'كتاب ليالي الامتحان',icon:'fa-moon'},{id:'final_rev',label:'مراجعة أخيرة',icon:'fa-book-open'},{id:'solve_exam',label:'امتحان تجريبي',icon:'fa-file-alt'},{id:'shomar',label:'حل الشوامل',icon:'fa-calculator'}]}
     ]},
-  {id:2, title:'ليالي الفيزياء — 29 يونيو - 1 يوليو',
+  {id:2, title:'ليالي الفيزياء — 1-3 يوليو',
     schedule:[
-      {day:'الإثنين',date:'29 يونيو',subject:'فيزياء',type:'phys',nightExam:true, jsDate:new Date(2026,5,29),
+      {day:'الثلاثاء',date:'1 يوليو',subject:'فيزياء',type:'phys',nightExam:true, jsDate:new Date(2026,6,1),
         tasks:[{id:'night_book',label:'كتاب ليالي الامتحان',icon:'fa-moon'},{id:'final_rev',label:'مراجعة أخيرة',icon:'fa-book-open'},{id:'solve_exam',label:'امتحان تجريبي',icon:'fa-file-alt'},{id:'shomar',label:'حل الشوامل',icon:'fa-calculator'}]},
-      {day:'الثلاثاء',date:'30 يونيو',subject:'فيزياء',type:'phys',nightExam:true, jsDate:new Date(2026,5,30),
+      {day:'الأربعاء',date:'2 يوليو',subject:'فيزياء',type:'phys',nightExam:true, jsDate:new Date(2026,6,2),
         tasks:[{id:'night_book',label:'كتاب ليالي الامتحان',icon:'fa-moon'},{id:'final_rev',label:'مراجعة أخيرة',icon:'fa-book-open'},{id:'solve_exam',label:'امتحان تجريبي',icon:'fa-file-alt'},{id:'shomar',label:'حل الشوامل',icon:'fa-calculator'}]},
-      {day:'الأربعاء',date:'1 يوليو',subject:'فيزياء',type:'phys',nightExam:true, jsDate:new Date(2026,6,1),lastInPhase:true,phaseMsg:'✓ بالتوفيق في الامتحان!',
+      {day:'الخميس',date:'3 يوليو',subject:'فيزياء',type:'phys',nightExam:true, jsDate:new Date(2026,6,3),lastInPhase:true,phaseMsg:'✓ بالتوفيق في الامتحان!',
         tasks:[{id:'night_book',label:'كتاب ليالي الامتحان',icon:'fa-moon'},{id:'final_rev',label:'مراجعة أخيرة',icon:'fa-book-open'},{id:'solve_exam',label:'امتحان تجريبي',icon:'fa-file-alt'},{id:'shomar',label:'حل الشوامل',icon:'fa-calculator'}]}
     ]}
 ];
@@ -990,10 +1123,10 @@ function findTodayInPhase(phase) {
 
 function detectCurrentPhase() {
   const today = new Date(); today.setHours(0,0,0,0);
-  const p1end = new Date(2026,4,29); p1end.setHours(0,0,0,0);
-  const p2end = new Date(2026,5,15); p2end.setHours(0,0,0,0);
-  const p3end = new Date(2026,5,28); p3end.setHours(0,0,0,0);
-  const p4end = new Date(2026,6,1); p4end.setHours(0,0,0,0);
+  const p1end = new Date(2026,4,30); p1end.setHours(0,0,0,0);
+  const p2end = new Date(2026,5,16); p2end.setHours(0,0,0,0);
+  const p3end = new Date(2026,5,29); p3end.setHours(0,0,0,0);
+  const p4end = new Date(2026,6,3); p4end.setHours(0,0,0,0);
   if (today <= p1end) return 1;
   if (today <= p2end) return 2;
   if (today <= p3end) return 3;
@@ -1064,6 +1197,7 @@ function renderTodayCard(phase) {
   </div>`;
 
   const borderColor = day.type==='chem'?'var(--sg)':day.type==='phys'?'var(--ph)':'var(--ag)';
+  const phaseColors = {1:'var(--pb)',2:'var(--p2-color)',3:'#F9A825',4:'var(--p4-color)'};
   container.innerHTML = `<div class="today-card" style="border-color:${borderColor};">
     <div class="today-header">
       <div class="today-date">${day.day} — ${day.date}</div>
@@ -1075,9 +1209,18 @@ function renderTodayCard(phase) {
     ${understandHTML}
     ${day.chapterMsg?`<div class="chapter-complete">${day.chapterMsg}</div>`:''}
     ${day.phaseMsg?`<div class="chapter-complete">${day.phaseMsg}</div>`:''}
+    <div class="today-footer">
+      <div class="today-day-count">
+        <span style="font-size:.78rem;color:var(--lb);">اليوم رقم</span>
+        <span class="today-day-badge" style="background:linear-gradient(135deg,${phaseColors[phase]},var(--db));"># ${currentDay[phase]+1}</span>
+      </div>
+      <button class="today-done-btn" onclick="handleDayEnd(${phase})">
+        <i class="fas fa-flag-checkered"></i> أنهيت يومي!
+      </button>
+    </div>
   </div>`;
 
-  document.getElementById('dayNumber'+phase).textContent = currentDay[phase];
+  if(phase===currentPhase) updateNavProgress(phase);
 }
 
 /* ===================== TOGGLE TASK ===================== */
@@ -1467,19 +1610,19 @@ function updateStreak() { document.getElementById('streakBadge').textContent=cur
 function renewNiya() {
   niyaCount++; addPoints(POINTS_DEF.niya,'🤲');
   showToast('🤲 تم تجديد النية! بارك الله فيك');
-  document.getElementById('sidebarNiya').textContent=niyaCount; saveState(); checkBadges();
+  document.getElementById('sidebarNiya').textContent=niyaCount; saveState(); checkBadges(); updateDrawerUI();
 }
 function addPrayer() {
   if(prayerCount<5){ prayerCount++; addPoints(POINTS_DEF.prayer,'🕌');
     showToast('🕌 صلاة '+prayerCount+' من 5');
-    document.getElementById('sidebarPrayer').textContent=prayerCount; saveState(); checkBadges();
+    document.getElementById('sidebarPrayer').textContent=prayerCount; saveState(); checkBadges(); updateDrawerUI();
     if(prayerCount===5) setTimeout(()=>showCelebration('🕌','أحسنت!','أكملت الصلوات الخمسة'),400);
   }
 }
 function toggleQuran() {
   quranDone=!quranDone;
   if(quranDone){addPoints(POINTS_DEF.quran,'📖'); showToast('📖 أحسنت! قرأت سورة اليوم');}
-  document.getElementById('sidebarQuran').textContent=quranDone?'✅ تم':'لم تُكمل'; saveState(); checkBadges();
+  document.getElementById('sidebarQuran').textContent=quranDone?'✅ تم':'لم تُكمل'; saveState(); checkBadges(); updateDrawerUI();
 }
 
 /* ===================== GOAL ===================== */
@@ -1541,7 +1684,17 @@ function openMorningModal() {
   const days=['الأحد','الإثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت'];
   const el=document.getElementById('morningDate'); if(el)el.textContent=days[today.getDay()]+' '+today.getDate()+' '+months[today.getMonth()];
   const prev=document.getElementById('morningPrev'); if(prev)prev.textContent=localStorage.getItem(getMorningKey(1))||'لا توجد رسالة سابقة';
-  const inp=document.getElementById('morningInput'); if(inp)inp.value=localStorage.getItem(getMorningKey())||'';
+  const inp=document.getElementById('morningInput');
+  if(inp){
+    const saved = localStorage.getItem(getMorningKey())||'';
+    const dailyMsg = getMorningMessageForToday()||'';
+    inp.value = saved || dailyMsg;
+    // always allow editing
+  }
+  // Show daily message hint
+  const hint = document.getElementById('morningHint');
+  const dailyMsg = getMorningMessageForToday();
+  if(hint) hint.textContent = dailyMsg ? '💡 رسالة اليوم موضوعة لك — يمكنك تعديلها أو حفظها كما هي' : '';
   document.getElementById('morningModal').classList.add('show');
 }
 function closeMorningModal() { document.getElementById('morningModal').classList.remove('show'); }
@@ -1551,8 +1704,10 @@ function saveMorningMsg() {
   closeMorningModal();
 }
 function updateMorningBanner() {
-  const saved=localStorage.getItem(getMorningKey())||'';
-  const el=document.getElementById('morningBannerText1'); if(el)el.textContent=saved||'اكتب رسالة الصباح لنفسك...';
+  const saved = localStorage.getItem(getMorningKey()) || '';
+  const dailyMsg = getMorningMessageForToday();
+  const el = document.getElementById('morningBannerText1');
+  if (el) el.textContent = saved || dailyMsg || 'اكتب رسالة الصباح لنفسك...';
 }
 
 /* ===================== BADGES ===================== */
@@ -1712,7 +1867,204 @@ function init() {
     const b=document.getElementById('motivationBanner'+currentPhase);
     if(b) b.textContent=MOTIVATIONS[Math.floor(Math.random()*MOTIVATIONS.length)];
   },30000);
+
+  updateDrawerUI();
+  checkMorningAutoPopup();
+  updateNavProgress(currentPhase);
 }
+/* ===== Drawer ===== */
+function openDrawer() {
+  document.getElementById('routineDrawer').classList.add('open');
+  document.getElementById('routineOverlay').classList.add('show');
+  document.body.style.overflow = 'hidden';
+  updateDrawerUI();
+}
+function closeDrawer() {
+  document.getElementById('routineDrawer').classList.remove('open');
+  document.getElementById('routineOverlay').classList.remove('show');
+  document.body.style.overflow = '';
+}
+function updateDrawerUI() {
+  const niya = document.getElementById('drawerNiyaCount');
+  const prayer = document.getElementById('drawerPrayerCount');
+  const quranStatus = document.getElementById('drawerQuranStatus');
+  const morning = document.getElementById('drawerMorningStatus');
+  const badge = document.getElementById('routineBadge');
+  if(niya) niya.textContent = niyaCount;
+  if(prayer) prayer.textContent = prayerCount;
+  if(quranStatus) quranStatus.textContent = quranDone ? '✅ تم' : 'لم تُكمل';
+  const drawerQuran = document.getElementById('drawerQuran');
+  if(drawerQuran) drawerQuran.classList.toggle('active-item', quranDone);
+  const drawerPrayer = document.getElementById('drawerPrayer');
+  if(drawerPrayer) drawerPrayer.classList.toggle('active-item', prayerCount>=5);
+  // Morning status
+  const todayMsg = localStorage.getItem(getMorningKey());
+  if(morning) morning.textContent = todayMsg ? '✅ كُتبت' : 'اكتب رسالتك';
+  // Routine badge count (completed items)
+  let done = 0;
+  if(niyaCount>0) done++;
+  if(prayerCount>=5) done++;
+  if(quranDone) done++;
+  if(todayMsg) done++;
+  if(goalAchieved) done++;
+  if(badge) badge.textContent = done + '/5';
+}
+
+/* ===== Stats Collapsible ===== */
+function toggleStats(phase) {
+  const el = document.getElementById('statsCollapsible'+phase);
+  const icon = document.getElementById('statsIcon'+phase);
+  const btn = document.getElementById('statsBtn'+phase);
+  const isOpen = el.classList.contains('open');
+  el.classList.toggle('open', !isOpen);
+  icon.classList.toggle('open', !isOpen);
+  if (!isOpen) {
+    // render chart when opened
+    setTimeout(() => renderChart(phase), 50);
+    updateHeatmap(phase);
+  }
+}
+
+function setStatsTab(phase, tab) {
+  ['chart','heat'].forEach(t => {
+    document.getElementById(`spanel${phase}${t}`)?.classList.toggle('active', t===tab);
+    document.getElementById(`stab${phase}${t}`)?.classList.toggle('active', t===tab);
+  });
+  if(tab==='chart') setTimeout(()=>renderChart(phase),50);
+}
+
+/* ===== Nav Progress Bar ===== */
+function updateNavProgress(phase) {
+  const fill = document.getElementById('navProgressFill');
+  if(!fill) return;
+  const pct = getPhaseProgress(phase);
+  const colors = {1:'linear-gradient(90deg,var(--p1-color),#64B5F6)',2:'linear-gradient(90deg,var(--p2-color),#81C784)',3:'linear-gradient(90deg,#F9A825,#FFD54F)',4:'linear-gradient(90deg,var(--p4-color),#E91E63)'};
+  fill.style.width = pct + '%';
+  fill.style.background = colors[phase] || 'linear-gradient(90deg,var(--sg),var(--ag))';
+}
+
+/* today card counter now embedded in renderTodayCard */
+
+/* ===== رسائل الصباح المكتوبة ===== */
+const DAILY_MORNING_MESSAGES = [
+  // أبريل
+  {date:'2026-04-23', msg:'🌅 يوم جديد، فرصة جديدة! المرحلة بدأت — انطلق بقوة وثق في قدراتك.'},
+  {date:'2026-04-24', msg:'☀️ اليوم أول أيامك الحقيقية في الريمونتادا. كل حصة تذاكرها هي رصيد لامتحانك.'},
+  {date:'2026-04-25', msg:'💪 يوم الخميس = يوم الفيزياء! ركز في القوانين واحفظها صح من الأول.'},
+  {date:'2026-04-26', msg:'🧪 الكيمياء لها نظام — اقرأ أولاً، افهم ثانياً، احل ثالثاً. الترتيب ده سيرك.'},
+  {date:'2026-04-27', msg:'🔬 كل يوم بتذاكره بيقرب الفجوة بينك وبين هدفك. استمر!'},
+  {date:'2026-04-28', msg:'⚡ الأسبوع الأول هو الأصعب — بعده هيبقى عندك زخم. امشي.'},
+  {date:'2026-04-29', msg:'🎯 ذاكر النهارده زي ما مفيش بكرة، وارتح زي ما بكرة مفيش امتحان.'},
+  {date:'2026-04-30', msg:'🌟 أسبوعك الأول يوشك على الانتهاء. اعمل مراجعة سريعة وكافئ نفسك!'},
+  {date:'2026-05-01', msg:'🔥 أسبوع جديد = نقطة انطلاق جديدة. حدد هدف واحد محدد ليوم النهارده.'},
+  // مايو
+  {date:'2026-05-02', msg:'🕌 أول مايو مبارك! قبل ما تبدأ، جدد نيتك واسأل الله التوفيق.'},
+  {date:'2026-05-03', msg:'📚 التكرار أساس الحفظ. كل ما ذاكرته امبارح، راجعه في 5 دقايق دلوقتي.'},
+  {date:'2026-05-04', msg:'💡 لو حسيت بصعوبة، ده مش معناه إنك مش قادر — ده معناه إنك بتتعلم فعلاً.'},
+  {date:'2026-05-05', msg:'⏰ الوقت بيعدي بسرعة. كل حصة بتذاكرها النهارده هي حصة أقل ضغطاً في الامتحان.'},
+  {date:'2026-05-06', msg:'🏆 الفرق بين الأول والأخير مش الذكاء — هو الاستمرارية. أنت مستمر!'},
+  {date:'2026-05-07', msg:'🌈 منتصف الأسبوع! قيّم نفسك: إيه اللي ذاكرته؟ إيه اللي محتاج تركز عليه؟'},
+  {date:'2026-05-08', msg:'🧠 الفهم أهم من الحفظ. لو مفهمتش حاجة، اسأل أو اشرحها لنفسك بصوت عالي.'},
+  {date:'2026-05-09', msg:'💪 اليوم خميس — فيزياء! ركز في المسائل الرقمية، الأرقام بتحب التكرار.'},
+  {date:'2026-05-10', msg:'✨ كل صفحة بتقلبها هي خطوة في رحلتك. مفيش جهد بيضيع.'},
+  {date:'2026-05-11', msg:'🎯 اكتب 3 حاجات محتاج تذاكرهم النهارده — وخلي اليوم ده مش ينتهي قبل ما تكملهم.'},
+  {date:'2026-05-12', msg:'🔥 أسبوعين خلصوا! أنت بتبني أساس قوي. تخيل لما تدخل الامتحان بكل ده معاك.'},
+  {date:'2026-05-13', msg:'📖 القرآن والمذاكرة معاً — روح مرتاحة تحفظ أسرع. اقرأ ورد وابدأ.'},
+  {date:'2026-05-14', msg:'💎 الأيام الصعبة هي اللي بتصنع الفرق. لو مش حاسس بمزاج، ذاكر 30 دقيقة بس.'},
+  {date:'2026-05-15', msg:'🚀 اقتربنا من منتصف المرحلة الأولى! الزخم بتاعك واضح — كمّل!'},
+  {date:'2026-05-16', msg:'⚡ الفيزياء محتاجة فهم، مش حفظ. اشرح لنفسك ليه المعادلة دي شكلها كده.'},
+  {date:'2026-05-17', msg:'🌅 كل صباح جديد هو فرصة تصحح فيها أمبارح وتبني النهارده. ابدأ!'},
+  {date:'2026-05-18', msg:'🎓 بدأت مرحلة الفيزياء المتواصلة — ركز على الأساسيات وارسم الرسوم البيانية.'},
+  {date:'2026-05-19', msg:'💪 ما بقيش كتير! كل حصة بتخلصها بتضيق المسافة بين إنت وهدفك.'},
+  {date:'2026-05-20', msg:'🔬 راجع ملاحظاتك القديمة اليوم. الكيمياء محتاجة مراجعة دورية.'},
+  {date:'2026-05-21', msg:'🏅 3 أسابيع! أنت من الجادين اللي وصلوا لهنا. فخور بيك.'},
+  {date:'2026-05-22', msg:'✨ اليوم، ركز على نقطة ضعف واحدة فقط. مش كل حاجة — نقطة واحدة محددة.'},
+  {date:'2026-05-23', msg:'⏳ الوقت قرّب. كل يوم بيعدي بدون مذاكرة هو يوم بتديه للمنافس.'},
+  {date:'2026-05-24', msg:'🌟 أنت قادر على أكثر مما تتخيل. النهارده أثبت لنفسك ده.'},
+  {date:'2026-05-25', msg:'🔥 آخر أسبوع في المرحلة الأولى! دفع أخير وتعبور.'},
+  {date:'2026-05-26', msg:'💡 راجع كيمياء + فيزياء معاً النهارده. شايف الفرق في مستواك؟'},
+  {date:'2026-05-27', msg:'🎯 قبل بكرة تنتهي المرحلة! خلص كل ما عندك واعمل مراجعة شاملة.'},
+  {date:'2026-05-28', msg:'🏆 يوم ما قبل الأخير في المرحلة 1! مبروك — أنت قطعت شوطاً رائعاً.'},
+  {date:'2026-05-29', msg:'🎉 المرحلة الأولى خلصت! خذ نفس عميق ثم استعد للمرحلة الثانية.'},
+  {date:'2026-05-30', msg:'🚀 آخر يوم في المرحلة 1 — أتمها بقوة ثم احتفل بنفسك!'},
+  // يونيو - مرحلة 2
+  {date:'2026-05-31', msg:'🌅 المرحلة الثانية تبدأ! الكيمياء العضوية والفيزياء الحديثة — استعد لعمق أكبر.'},
+  {date:'2026-06-01', msg:'⚗️ الكيمياء العضوية لها منطقها الخاص. ركز على التسمية والتفاعلات أولاً.'},
+  {date:'2026-06-02', msg:'⚡ الفيزياء الحديثة مثيرة! أينشتاين وبور وهايزنبرج — اليوم بتتعرف على عظماء.'},
+  {date:'2026-06-03', msg:'💪 المرحلة 2 أصعب لكن أكثر إثارة. الصعوبة علامة إنك بتتقدم.'},
+  {date:'2026-06-04', msg:'🧪 كل جزء عضوي بتذاكره بيفتح لك باب جديد. استمتع بالكيمياء اليوم.'},
+  {date:'2026-06-05', msg:'🔬 فيزياء اليوم — ارسم المعادلات، افهم المعنى الفيزيائي وراها.'},
+  {date:'2026-06-06', msg:'🎯 منتصف أسبوع — قيّم نفسك: فاهم ولا محتاج تعيد؟'},
+  {date:'2026-06-07', msg:'🌟 النهارده احل كتاب الأيزو — هو السلاح السري في الكيمياء.'},
+  {date:'2026-06-08', msg:'💡 كتاب نيوتن للفيزياء الحديثة هو كنزك. افتحه اليوم.'},
+  {date:'2026-06-09', msg:'🔥 أسبوع كامل في المرحلة 2! أنت بتبني تخصصك. استمر!'},
+  {date:'2026-06-10', msg:'⏰ الامتحان بيقترب. كل يوم له وزنه. اجعل النهارده يحسب.'},
+  {date:'2026-06-11', msg:'💪 الأصعب وراك — المرحلة 2 في نصها! ركز ومتستعجلش.'},
+  {date:'2026-06-12', msg:'🧠 الفهم العميق يجي من التكرار المنتظم. مش ليلة امتحان.'},
+  {date:'2026-06-13', msg:'🌈 لو تعبت، خذ 15 دقيقة راحة حقيقية. ثم عد بقوة.'},
+  {date:'2026-06-14', msg:'🏆 ختام المرحلة 2 يقترب! اجمع أفضل ما ذاكرته وكرره.'},
+  {date:'2026-06-15', msg:'⚡ مراجعة سريعة لكل الفيزياء الحديثة النهارده. بالتوفيق!'},
+  {date:'2026-06-16', msg:'🎉 المرحلة 2 انتهت! أنت الآن أعمق معرفةً وأقوى استعداداً.'},
+  // يونيو - مرحلة 3 مراجعة
+  {date:'2026-06-17', msg:'🎯 بدأت المراجعة النهائية! ده الوقت اللي بتجمع فيه كل حاجة مع بعض.'},
+  {date:'2026-06-18', msg:'📚 المراجعة مش حفظ جديد — هي توطيد لما عندك. ذاكر بفهم.'},
+  {date:'2026-06-19', msg:'🔥 2 أسبوع على الكيمياء! الوقت مناسب لمراجعة نهائية منظمة.'},
+  {date:'2026-06-20', msg:'💪 الفيزياء اليوم — اعمل ملخص لأهم القوانين ونقاط الضعف.'},
+  {date:'2026-06-21', msg:'🌟 مش مهم كم تذاكر — مهم كيف تذاكر. جودة > كمية.'},
+  {date:'2026-06-22', msg:'🧠 حل امتحانات سنوات سابقة النهارده. هما أفضل تدريب.'},
+  {date:'2026-06-23', msg:'⏳ أسبوع ونص على الكيمياء. التركيز الكامل مطلوب الآن.'},
+  {date:'2026-06-24', msg:'🎯 حدد 3 نقاط ضعف وذاكرها فقط النهارده. التخصيص يكسب.'},
+  {date:'2026-06-25', msg:'💎 أقل من أسبوع على الكيمياء! راجع كل شيء بنظرة كاملة.'},
+  {date:'2026-06-26', msg:'🔥 4 أيام! الضغط طبيعي — هو علامة إنك جاد. تنفس وذاكر.'},
+  {date:'2026-06-27', msg:'⚡ 3 أيام! ليالي الكيمياء بدأت. خصص الوقت وأغلق كل الإشتتاتات.'},
+  {date:'2026-06-28', msg:'💪 يومين! اليوم مراجعة شاملة وغداً راحة نسبية واطمئنان.'},
+  {date:'2026-06-29', msg:'🌅 يوم ما قبل الكيمياء! راجع بثقة، نام مبكراً، وكل كويس.'},
+  // ليالي الامتحان
+  {date:'2026-06-30', msg:'🤲 اليوم امتحان الكيمياء! "توكلت على الله" — ادخل بثقة وتركيز. بالتوفيق!'},
+  {date:'2026-07-01', msg:'😌 انتهت الكيمياء! خذ نفساً وابدأ مراجعة خفيفة للفيزياء.'},
+  {date:'2026-07-02', msg:'🔬 3 أيام على الفيزياء! ركز على القوانين الأساسية والمسائل الرقمية.'},
+  {date:'2026-07-03', msg:'⚡ يومين! اجمع كل ملاحظاتك الفيزياء ونظمها في ملخص أخير.'},
+  {date:'2026-07-04', msg:'🌙 يوم ما قبل الفيزياء! راجع بثقة، استرح مبكراً، الله معاك.'},
+  {date:'2026-07-05', msg:'👑 امتحان الفيزياء اليوم! أنت ذاكرت وجاهدت — ادخل بثقة كاملة. بالتوفيق!'},
+];
+
+function getMorningMessageForToday() {
+  const today = new Date();
+  const yyyy = today.getFullYear();
+  const mm = String(today.getMonth()+1).padStart(2,'0');
+  const dd = String(today.getDate()).padStart(2,'0');
+  const key = `${yyyy}-${mm}-${dd}`;
+  const found = DAILY_MORNING_MESSAGES.find(m => m.date === key);
+  return found ? found.msg : null;
+}
+
+function checkMorningAutoPopup() {
+  const now = new Date();
+  const hour = now.getHours();
+  // Only show between 7am and 10am
+  if (hour < 7 || hour >= 10) return;
+
+  const todayKey = `morning_shown_${now.getFullYear()}_${now.getMonth()}_${now.getDate()}`;
+  if (localStorage.getItem(todayKey)) return; // already shown today
+
+  const dailyMsg = getMorningMessageForToday();
+  if (!dailyMsg) return;
+
+  setTimeout(() => {
+    // Auto-fill the morning modal with today's message
+    const inp = document.getElementById('morningInput');
+    if (inp && !inp.value) inp.value = dailyMsg;
+
+    // Show morning modal
+    openMorningModal();
+
+    // Mark as shown for today
+    localStorage.setItem(todayKey, '1');
+  }, 1500);
+}
+
+/* drawer UI updates handled directly in each function */
+
 
 window.addEventListener('DOMContentLoaded', init);
 window.onclick=e=>{
