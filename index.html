@@ -288,6 +288,37 @@ body{font-family:'Tajawal',"Segoe UI Emoji","Apple Color Emoji","Noto Color Emoj
   .proud-section{min-width:140px;order:5;width:100%;}
   .report-btn{order:6;width:100%;justify-content:center;}
 }
+
+/* ===== مؤشر الفهم ===== */
+.understand-row{display:flex;align-items:center;gap:.6rem;margin-top:.8rem;padding:.6rem .8rem;background:rgba(212,175,55,0.08);border-radius:10px;border:1px solid rgba(212,175,55,0.2);}
+.understand-label{font-size:.75rem;font-weight:700;color:var(--lb);white-space:nowrap;}
+.understand-stars{display:flex;gap:.3rem;direction:ltr;}
+.ustar{font-size:1.2rem;cursor:pointer;opacity:.3;transition:all .2s;line-height:1;}
+.ustar.lit{opacity:1;}
+.understand-avg{font-size:.7rem;font-weight:700;padding:.2rem .5rem;border-radius:10px;background:var(--lc);color:var(--pb);white-space:nowrap;}
+
+/* ===== الخريطة الحرارية ===== */
+.heatmap-section{background:white;border-radius:20px;padding:1.5rem;margin:1rem 0;box-shadow:0 4px 15px rgba(0,0,0,.08);}
+.heatmap-title{font-weight:800;color:var(--pb);margin-bottom:1rem;font-size:.95rem;display:flex;align-items:center;gap:.5rem;}
+.heatmap-legend{display:flex;align-items:center;gap:.5rem;font-size:.7rem;color:var(--lb);margin-bottom:.8rem;flex-wrap:wrap;}
+.legend-box{width:16px;height:16px;border-radius:4px;display:inline-block;}
+.heatmap-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;}
+.heatmap-cell{aspect-ratio:1;border-radius:5px;cursor:pointer;transition:transform .15s;position:relative;display:flex;align-items:center;justify-content:center;}
+.heatmap-cell:hover{transform:scale(1.2);z-index:10;}
+.heatmap-cell .hc-tooltip{position:absolute;bottom:120%;left:50%;transform:translateX(-50%);background:var(--db);color:white;padding:.3rem .6rem;border-radius:8px;font-size:.65rem;white-space:nowrap;pointer-events:none;opacity:0;transition:opacity .2s;z-index:100;}
+.heatmap-cell:hover .hc-tooltip{opacity:1;}
+.hc-empty{background:#f0ece4;}
+.hc-0{background:#f0ece4;}
+.hc-1{background:#c8e6c9;}
+.hc-2{background:#81c784;}
+.hc-3{background:#4caf50;}
+.hc-4{background:#2e7d32;}
+.hc-low{background:#fff9c4;}
+.hc-mid{background:#ffb74d;}
+.hc-high{background:#ef5350;}
+.heatmap-days-row{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:3px;}
+.heatmap-day-label{text-align:center;font-size:.6rem;color:var(--lb);font-weight:700;}
+
 </style>
 </head>
 <body>
@@ -449,6 +480,30 @@ body{font-family:'Tajawal',"Segoe UI Emoji","Apple Color Emoji","Noto Color Emoj
       <div class="chart-title">📈 التقدم الأسبوعي</div>
       <canvas id="progressChart1"></canvas>
     </div>
+    <div class="heatmap-section">
+      <div class="heatmap-title">🗓️ الخريطة الحرارية — الإنجاز اليومي</div>
+      <div class="heatmap-legend">
+        <span class="legend-box" style="background:#f0ece4;border:1px solid #ddd;"></span> لم يبدأ
+        <span class="legend-box" style="background:#c8e6c9;"></span> 1-25%
+        <span class="legend-box" style="background:#81c784;"></span> 26-50%
+        <span class="legend-box" style="background:#4caf50;"></span> 51-75%
+        <span class="legend-box" style="background:#2e7d32;"></span> 76-100%
+        &nbsp;|&nbsp; 🧠 الفهم:
+        <span class="legend-box" style="background:#fff9c4;border:1px solid #ddd;"></span> 1-2
+        <span class="legend-box" style="background:#ffb74d;"></span> 3
+        <span class="legend-box" style="background:#ef5350;"></span> 4-5
+      </div>
+      <div class="heatmap-days-row">
+        <div class="heatmap-day-label">أح</div>
+        <div class="heatmap-day-label">إث</div>
+        <div class="heatmap-day-label">ث</div>
+        <div class="heatmap-day-label">أر</div>
+        <div class="heatmap-day-label">خ</div>
+        <div class="heatmap-day-label">ج</div>
+        <div class="heatmap-day-label">س</div>
+      </div>
+      <div class="heatmap-grid" id="heatmap1"></div>
+    </div>
   </div>
 </div>
 
@@ -489,6 +544,30 @@ body{font-family:'Tajawal',"Segoe UI Emoji","Apple Color Emoji","Noto Color Emoj
     <div class="chart-section">
       <div class="chart-title">📈 التقدم الأسبوعي</div>
       <canvas id="progressChart2"></canvas>
+    </div>
+    <div class="heatmap-section">
+      <div class="heatmap-title">🗓️ الخريطة الحرارية — الإنجاز اليومي</div>
+      <div class="heatmap-legend">
+        <span class="legend-box" style="background:#f0ece4;border:1px solid #ddd;"></span> لم يبدأ
+        <span class="legend-box" style="background:#c8e6c9;"></span> 1-25%
+        <span class="legend-box" style="background:#81c784;"></span> 26-50%
+        <span class="legend-box" style="background:#4caf50;"></span> 51-75%
+        <span class="legend-box" style="background:#2e7d32;"></span> 76-100%
+        &nbsp;|&nbsp; 🧠 الفهم:
+        <span class="legend-box" style="background:#fff9c4;border:1px solid #ddd;"></span> 1-2
+        <span class="legend-box" style="background:#ffb74d;"></span> 3
+        <span class="legend-box" style="background:#ef5350;"></span> 4-5
+      </div>
+      <div class="heatmap-days-row">
+        <div class="heatmap-day-label">أح</div>
+        <div class="heatmap-day-label">إث</div>
+        <div class="heatmap-day-label">ث</div>
+        <div class="heatmap-day-label">أر</div>
+        <div class="heatmap-day-label">خ</div>
+        <div class="heatmap-day-label">ج</div>
+        <div class="heatmap-day-label">س</div>
+      </div>
+      <div class="heatmap-grid" id="heatmap2"></div>
     </div>
   </div>
 </div>
@@ -531,6 +610,30 @@ body{font-family:'Tajawal',"Segoe UI Emoji","Apple Color Emoji","Noto Color Emoj
       <div class="chart-title">📈 التقدم</div>
       <canvas id="progressChart3"></canvas>
     </div>
+    <div class="heatmap-section">
+      <div class="heatmap-title">🗓️ الخريطة الحرارية — الإنجاز اليومي</div>
+      <div class="heatmap-legend">
+        <span class="legend-box" style="background:#f0ece4;border:1px solid #ddd;"></span> لم يبدأ
+        <span class="legend-box" style="background:#c8e6c9;"></span> 1-25%
+        <span class="legend-box" style="background:#81c784;"></span> 26-50%
+        <span class="legend-box" style="background:#4caf50;"></span> 51-75%
+        <span class="legend-box" style="background:#2e7d32;"></span> 76-100%
+        &nbsp;|&nbsp; 🧠 الفهم:
+        <span class="legend-box" style="background:#fff9c4;border:1px solid #ddd;"></span> 1-2
+        <span class="legend-box" style="background:#ffb74d;"></span> 3
+        <span class="legend-box" style="background:#ef5350;"></span> 4-5
+      </div>
+      <div class="heatmap-days-row">
+        <div class="heatmap-day-label">أح</div>
+        <div class="heatmap-day-label">إث</div>
+        <div class="heatmap-day-label">ث</div>
+        <div class="heatmap-day-label">أر</div>
+        <div class="heatmap-day-label">خ</div>
+        <div class="heatmap-day-label">ج</div>
+        <div class="heatmap-day-label">س</div>
+      </div>
+      <div class="heatmap-grid" id="heatmap3"></div>
+    </div>
   </div>
 </div>
 
@@ -567,6 +670,30 @@ body{font-family:'Tajawal',"Segoe UI Emoji","Apple Color Emoji","Noto Color Emoj
     <div class="chart-section">
       <div class="chart-title">📈 التقدم</div>
       <canvas id="progressChart4"></canvas>
+    </div>
+    <div class="heatmap-section">
+      <div class="heatmap-title">🗓️ الخريطة الحرارية — الإنجاز اليومي</div>
+      <div class="heatmap-legend">
+        <span class="legend-box" style="background:#f0ece4;border:1px solid #ddd;"></span> لم يبدأ
+        <span class="legend-box" style="background:#c8e6c9;"></span> 1-25%
+        <span class="legend-box" style="background:#81c784;"></span> 26-50%
+        <span class="legend-box" style="background:#4caf50;"></span> 51-75%
+        <span class="legend-box" style="background:#2e7d32;"></span> 76-100%
+        &nbsp;|&nbsp; 🧠 الفهم:
+        <span class="legend-box" style="background:#fff9c4;border:1px solid #ddd;"></span> 1-2
+        <span class="legend-box" style="background:#ffb74d;"></span> 3
+        <span class="legend-box" style="background:#ef5350;"></span> 4-5
+      </div>
+      <div class="heatmap-days-row">
+        <div class="heatmap-day-label">أح</div>
+        <div class="heatmap-day-label">إث</div>
+        <div class="heatmap-day-label">ث</div>
+        <div class="heatmap-day-label">أر</div>
+        <div class="heatmap-day-label">خ</div>
+        <div class="heatmap-day-label">ج</div>
+        <div class="heatmap-day-label">س</div>
+      </div>
+      <div class="heatmap-grid" id="heatmap4"></div>
     </div>
   </div>
 </div>
@@ -1068,6 +1195,19 @@ function renderTasks(phase, weekData) {
       <span class="diff-tag hard ${savedDiff==='hard'?'selected-hard':''}" onclick="event.stopPropagation();setDiffTag(${phase},${currentWeek[phase]},${dayIdx},'hard')">صعب</span>
     </div>`;
 
+    const uKey = `ustar_p${phase}_w${currentWeek[phase]}_d${dayIdx}`;
+    const savedU = parseInt(localStorage.getItem(uKey)||'0');
+    const uStarsHTML = [1,2,3,4,5].map(n =>
+      `<span class="ustar${n<=savedU?' lit':''}" onclick="event.stopPropagation();setUnderstand('${uKey}',${n},${phase})">⭐</span>`
+    ).join('');
+    const uAvg = getUnderstandAvg(phase);
+    const uAvgHTML = uAvg > 0 ? `<span class="understand-avg">متوسط المرحلة: ${uAvg}/5</span>` : '';
+    const understandHTML = `<div class="understand-row">
+      <span class="understand-label">🧠 مستوى الفهم:</span>
+      <div class="understand-stars" id="${uKey}">${uStarsHTML}</div>
+      ${uAvgHTML}
+    </div>`;
+
     html += `<div class="day-task">
       <div class="day-header" onclick="toggleDay(this)">
         <div style="display:flex;align-items:center;gap:.8rem;flex-wrap:wrap;">
@@ -1081,6 +1221,7 @@ function renderTasks(phase, weekData) {
       </div>
       ${diffTagsHTML}
       <div class="task-grid${isFirst?' expanded':''}">${tasksContent}</div>
+      ${understandHTML}
       ${day.chapterMsg?`<div class="chapter-complete">${day.chapterMsg}</div>`:''}
       ${day.phaseMsg?`<div class="chapter-complete">${day.phaseMsg}</div>`:''}
     </div>`;
@@ -1124,6 +1265,7 @@ function toggleTask(phase, key, el) {
   localStorage.setItem(`completedTasks_${phase}`, JSON.stringify(completedTasks[phase]));
   updateProgress(phase);
   updateChartData(phase);
+  updateHeatmap(phase);
 }
 
 function updateProgress(phase) {
@@ -1584,6 +1726,7 @@ function initPhase(phase) {
   renderWeek(phase);
   updateProgress(phase);
   updateDayCounter(phase);
+  setTimeout(() => updateHeatmap(phase), 100);
 }
 
 /* ===================== SWITCH PHASE ===================== */
@@ -1600,6 +1743,7 @@ function switchPhase(phase) {
     updatePhaseInfo(phase);
     renderWeek(phase);
     updateChart(phase);
+    updateHeatmap(phase);
     loadProudText();
   }
   localStorage.setItem('currentPhase', currentPhase);
@@ -1799,6 +1943,107 @@ function getWeaknessAnalysis() {
     }
   }
   return hardItems;
+}
+
+/* ===================== مؤشر الفهم ===================== */
+function setUnderstand(key, val, phase) {
+  const current = parseInt(localStorage.getItem(key)||'0');
+  const newVal = current === val ? 0 : val;
+  localStorage.setItem(key, newVal);
+  const container = document.getElementById(key);
+  if (container) {
+    container.querySelectorAll('.ustar').forEach((s, i) => {
+      s.classList.toggle('lit', i < newVal);
+    });
+  }
+  renderWeek(phase);
+  updateHeatmap(phase);
+  if (newVal >= 4) showToast('🧠 ممتاز! فهمك عالي!');
+  else if (newVal <= 2 && newVal > 0) showToast('📌 خد بالك من هذا الجزء في المراجعة');
+}
+
+function getUnderstandAvg(phase) {
+  const keys = [];
+  for (let i = 0; i < localStorage.length; i++) {
+    const k = localStorage.key(i);
+    if (k && k.startsWith('ustar_p' + phase + '_')) keys.push(k);
+  }
+  if (!keys.length) return 0;
+  const vals = keys.map(k => parseInt(localStorage.getItem(k)||'0')).filter(v => v > 0);
+  if (!vals.length) return 0;
+  return (vals.reduce((a,b) => a+b, 0) / vals.length).toFixed(1);
+}
+
+/* ===================== الخريطة الحرارية ===================== */
+function updateHeatmap(phase) {
+  const el = document.getElementById('heatmap' + phase);
+  if (!el) return;
+
+  const data = getPhaseData(phase);
+  const cells = [];
+
+  data.forEach((week, wIdx) => {
+    week.schedule.forEach((day, dIdx) => {
+      const prefix = 'p' + phase + '_w' + wIdx + '_d' + dIdx + '_';
+      const allKeys = Object.keys(completedTasks[phase]).filter(k => k.startsWith(prefix));
+      const doneCount = allKeys.filter(k => completedTasks[phase][k]).length;
+      const totalCount = allKeys.length;
+
+      let pct = 0;
+      if (wIdx === currentWeek[phase]) {
+        const items = document.querySelectorAll('#phase' + phase + ' .day-task');
+        const dayEl = items[dIdx];
+        if (dayEl) {
+          const allT = dayEl.querySelectorAll('.task-item').length;
+          const doneT = dayEl.querySelectorAll('.task-item.completed').length;
+          pct = allT > 0 ? Math.round(doneT/allT*100) : 0;
+        }
+      } else {
+        pct = totalCount > 0 ? Math.round(doneCount/totalCount*100) : 0;
+      }
+
+      const uKey = 'ustar_p' + phase + '_w' + wIdx + '_d' + dIdx;
+      const uVal = parseInt(localStorage.getItem(uKey)||'0');
+      cells.push({ day: day.day, date: day.date, subject: day.subject, type: day.type, pct, uVal });
+    });
+  });
+
+  const arabicDayOrder = ['الأحد','الإثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت'];
+  const firstDayIdx = cells[0] ? arabicDayOrder.indexOf(cells[0].day) : 0;
+  const padCount = firstDayIdx >= 0 ? firstDayIdx : 0;
+
+  let gridHTML = '';
+  for (let i = 0; i < padCount; i++) {
+    gridHTML += '<div class="heatmap-cell hc-empty"><div class="hc-tooltip">—</div></div>';
+  }
+
+  cells.forEach(cell => {
+    let colorClass = 'hc-0';
+    if (cell.pct > 0 && cell.pct <= 25) colorClass = 'hc-1';
+    else if (cell.pct > 25 && cell.pct <= 50) colorClass = 'hc-2';
+    else if (cell.pct > 50 && cell.pct <= 75) colorClass = 'hc-3';
+    else if (cell.pct > 75) colorClass = 'hc-4';
+
+    let uDot = '';
+    if (cell.uVal > 0) {
+      const uColor = cell.uVal <= 2 ? '#fff9c4' : cell.uVal === 3 ? '#ffb74d' : '#ef5350';
+      uDot = '<span style="width:7px;height:7px;border-radius:50%;background:' + uColor + ';border:1px solid rgba(0,0,0,.2);position:absolute;top:2px;left:2px;"></span>';
+    }
+
+    const subjIcon = cell.type === 'chem' ? '🧪' : '⚡';
+    const tooltip = subjIcon + ' ' + cell.date + ' | إنجاز: ' + cell.pct + '%' + (cell.uVal > 0 ? ' | فهم: ' + cell.uVal + '/5' : '');
+
+    gridHTML += '<div class="heatmap-cell ' + colorClass + '" style="position:relative;">' +
+      uDot +
+      '<div class="hc-tooltip">' + tooltip + '</div>' +
+      '</div>';
+  });
+
+  el.innerHTML = gridHTML;
+}
+
+function updateAllHeatmaps() {
+  [1,2,3,4].forEach(p => updateHeatmap(p));
 }
 
 /* ===================== EVENT LISTENERS ===================== */
